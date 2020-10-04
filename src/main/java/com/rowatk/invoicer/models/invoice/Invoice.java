@@ -1,7 +1,7 @@
 package com.rowatk.invoicer.models.invoice;
 
-import com.rowatk.invoicer.models.buyer.Buyer;
-import com.rowatk.invoicer.models.seller.Seller;
+import com.rowatk.invoicer.models.entity.Buyer;
+import com.rowatk.invoicer.models.entity.Seller;
 
 import java.util.Date;
 
@@ -15,30 +15,12 @@ public class Invoice {
     private Seller seller;
     private Buyer buyer;
     private String note;
+    private boolean paid;
+    private  Status status;
 
     public Invoice() {}
 
-//    public Invoice(
-//            String invoice_num,
-//            String header,
-//            Date issue_date,
-//            Date due_date,
-//            Date delivery_date,
-//            Seller seller,
-//            Buyer buyer,
-//            String note) {
-//        this.invoice_num = invoice_num;
-//        this.header = header;
-//        this.issue_date = issue_date;
-//        this.due_date = due_date;
-//        this.delivery_date = delivery_date;
-//        this.seller = seller;
-//        this.buyer = buyer;
-//        this.note = note;
-//    }
-
-
-    public Invoice(String invoice_num, String header, Date issue_date, Date due_date, Date delivery_date, Seller seller, Buyer buyer, String note) {
+    public Invoice(String invoice_num, String header, Date issue_date, Date due_date, Date delivery_date, Seller seller, Buyer buyer, String note, boolean paid, Status status) {
         this.invoice_num = invoice_num;
         this.header = header;
         this.issue_date = issue_date;
@@ -47,6 +29,8 @@ public class Invoice {
         this.seller = seller;
         this.buyer = buyer;
         this.note = note;
+        this.paid = paid;
+        this.status = status;
     }
 
     public String getInvoice_num() {
@@ -111,6 +95,22 @@ public class Invoice {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

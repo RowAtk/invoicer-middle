@@ -1,12 +1,21 @@
 package com.rowatk.invoicer.models.entity;
 
 import com.rowatk.invoicer.models.address.Address;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public abstract class Entity {
 
+    private int id;
+    @NotBlank
     private String company_name;
     private Address address;
+    @NotNull
     private String phone;
+    @NotNull
     private String email;
 
     public Entity(String company_name, Address address, String phone, String email) {
@@ -14,6 +23,14 @@ public abstract class Entity {
         this.address = address;
         this.phone = phone;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCompany_name() {

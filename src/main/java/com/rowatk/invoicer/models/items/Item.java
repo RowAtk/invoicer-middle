@@ -1,10 +1,15 @@
 package com.rowatk.invoicer.models.items;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Item {
 
     private int item_id;
     private String description;
+    @NotNull
     private double quantity;
+    @NotNull
     private double unit_price;
 
     public Item() {}

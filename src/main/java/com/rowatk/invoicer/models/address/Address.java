@@ -1,10 +1,15 @@
 package com.rowatk.invoicer.models.address;
 
+import javax.validation.constraints.NotBlank;
+
 public class Address {
 
+    @NotBlank
     private String street1;
     private String street2;
+    @NotBlank
     private String city;
+    @NotBlank
     private String country;
     private String zip;
 

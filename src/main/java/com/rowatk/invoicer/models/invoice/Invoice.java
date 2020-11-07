@@ -2,12 +2,12 @@ package com.rowatk.invoicer.models.invoice;
 
 import com.rowatk.invoicer.models.entity.Buyer;
 import com.rowatk.invoicer.models.entity.Seller;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 public class Invoice {
 
-    private String invoice_num;
+    private final int invoice_num;
     private String header;
     private Date issue_date;
     private Date due_date;
@@ -15,30 +15,35 @@ public class Invoice {
     private Seller seller;
     private Buyer buyer;
     private String note;
-    private boolean paid;
+    private boolean paid = false;
     private  Status status;
 
-    public Invoice() {}
+    public Invoice(int invoice_num) {
+        this.invoice_num = invoice_num;
+    }
 
-    public Invoice(String invoice_num, String header, Date issue_date, Date due_date, Date delivery_date, Seller seller, Buyer buyer, String note, boolean paid, Status status) {
+    public Invoice(@JsonProperty("invoice_num") int invoice_num,
+                   @JsonProperty("header") String header,
+                   @JsonProperty("issue_date") Date issue_date,
+                   @JsonProperty("due_date") Date due_date,
+                   @JsonProperty("delivery_date") Date delivery_date,
+                   @JsonProperty("seller") Seller seller,
+                   @JsonProperty("buyer") Buyer buyer,
+                   @JsonProperty("note") String note) {
         this.invoice_num = invoice_num;
         this.header = header;
-        this.issue_date = issue_date;
+        this.issue_date = issue_date != null ? issue_date : new Date();
         this.due_date = due_date;
         this.delivery_date = delivery_date;
         this.seller = seller;
         this.buyer = buyer;
         this.note = note;
-        this.paid = paid;
-        this.status = status;
+        this.paid = false;
+        this.status = Status.OPEN;
     }
 
-    public String getInvoice_num() {
+    public int getInvoice_num() {
         return invoice_num;
-    }
-
-    public void setInvoice_num(String invoice_num) {
-        this.invoice_num = invoice_num;
     }
 
     public String getHeader() {

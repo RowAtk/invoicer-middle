@@ -6,13 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class FakeEntityDao implements EntityDao{
+public abstract class FakeEntityDao implements EntityDao{
 
-    public static List<Entity> DB = new ArrayList<>();
+    private final List<Entity> DB = new ArrayList<>();
+
+    private int genId() {
+        int size = this.DB.size();
+        if(size > 0) {
+            return this.DB.get(size-1).getId() + 1;
+        }
+        return 0;
+    }
 
     @Override
     public boolean addEntity(Entity entity) {
         try {
+            entity.setId(this.genId());
             DB.add(entity);
             return true;
         } catch(Exception e) {

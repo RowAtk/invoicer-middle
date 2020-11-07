@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("fake")
-public class FakeInvoiceDataService implements InvoiceDao {
+@Repository("fakeInvoice")
+public class FakeInvoiceDao implements InvoiceDao {
 
     private static List<Invoice> DB = new ArrayList<>();
 

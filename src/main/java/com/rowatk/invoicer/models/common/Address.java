@@ -1,8 +1,8 @@
-package com.rowatk.invoicer.models.address;
+package com.rowatk.invoicer.models.common;
 
 import javax.validation.constraints.NotBlank;
 
-public class Address {
+public class Address implements Comparable<Address>{
 
     @NotBlank
     private String street1;
@@ -59,6 +59,28 @@ public class Address {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    @Override
+    public int compareTo(Address a) {
+        int st1 = this.street1.compareTo(a.getStreet1());
+        if(st1 == 0) {
+            int st2 = this.street2.compareTo(a.getStreet2());
+            if(st2 == 0) {
+                int city = this.city.compareTo(a.getCity());
+                if(city == 0) {
+                    int country = this.country.compareTo(a.getCountry());
+                    if (country == 0) {
+                        int zip = this.zip.compareTo(a.getZip());
+                        return zip;
+                    }
+                    return country;
+                }
+                return city;
+            }
+            return st2;
+        }
+        return st1;
     }
 
     @Override

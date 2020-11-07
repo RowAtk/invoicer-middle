@@ -1,13 +1,11 @@
 package com.rowatk.invoicer.models.entity;
 
-import com.rowatk.invoicer.models.address.Address;
-import org.springframework.lang.NonNull;
-import org.springframework.validation.annotation.Validated;
+import com.rowatk.invoicer.models.common.Address;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public abstract class Entity {
+public abstract class Entity implements Comparable<Entity>{
 
     private int id;
     @NotBlank
@@ -63,6 +61,15 @@ public abstract class Entity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int compareTo(Entity e) {
+        int nameCmp = this.company_name.compareTo(e.getCompany_name());
+        if(nameCmp == 0) {
+            return this.address.compareTo(e.getAddress());
+        }
+        return nameCmp;
     }
 
     public String toString(String type) {

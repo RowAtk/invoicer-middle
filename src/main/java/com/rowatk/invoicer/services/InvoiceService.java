@@ -19,7 +19,7 @@ public class InvoiceService {
         this.invoiceDao = invoiceDao;
     }
 
-    public boolean addInvoice(Invoice invoice){
+    public int addInvoice(Invoice invoice){
         return this.invoiceDao.addInvoice(invoice);
     }
 

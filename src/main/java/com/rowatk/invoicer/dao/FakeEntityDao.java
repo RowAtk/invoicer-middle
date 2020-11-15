@@ -15,19 +15,21 @@ public abstract class FakeEntityDao implements EntityDao{
         if(size > 0) {
             return this.DB.get(size-1).getId() + 1;
         }
-        return 0;
+        return 1;
     }
 
     @Override
-    public boolean addEntity(Entity entity) {
+    public int addEntity(Entity entity) {
+        int id = -1;
         try {
-            entity.setId(this.genId());
+            id = this.genId();
+            entity.setId(id);
             DB.add(entity);
-            return true;
         } catch(Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            return id;
         }
-        return false;
     }
 
     @Override

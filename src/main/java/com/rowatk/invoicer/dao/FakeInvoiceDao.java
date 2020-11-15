@@ -12,10 +12,26 @@ public class FakeInvoiceDao implements InvoiceDao {
 
     private static List<Invoice> DB = new ArrayList<>();
 
+    private int genId() {
+        int size = this.DB.size();
+        if(size > 0) {
+            return this.DB.get(size-1).getInvoice_num() + 1;
+        }
+        return 1;
+    }
+
     @Override
-    public boolean addInvoice(Invoice invoice) {
-        DB.add(invoice);
-        return true;
+    public int addInvoice(Invoice invoice) {
+        int id = -1;
+        try {
+            id = this.genId();
+            invoice.setInvoice_num(id);
+            DB.add(invoice);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            return id;
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.rowatk.invoicer.models.items;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class ItemList {
     @NotEmpty
     private List<Item> items;
 
-    public ItemList(List<Item> items) {
+    public ItemList(@JsonProperty("items") List<Item> items) {
         this.items = items;
     }
 

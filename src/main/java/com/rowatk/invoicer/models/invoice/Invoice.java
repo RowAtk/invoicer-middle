@@ -1,49 +1,71 @@
 package com.rowatk.invoicer.models.invoice;
 
-import com.rowatk.invoicer.models.entity.Buyer;
-import com.rowatk.invoicer.models.entity.Seller;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.rowatk.invoicer.models.items.ItemList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Invoice {
 
-    private final int invoice_num;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    private int invoice_num;
     private String header;
+
+    @JsonProperty("issue_date")
     private Date issue_date;
+
+    @JsonProperty("due_date")
     private Date due_date;
+
+    @JsonProperty("delivery_date")
     private Date delivery_date;
-    private Seller seller;
-    private Buyer buyer;
+
+    @JsonProperty("sellerId")
+    private int sellerId;
+
+    @JsonProperty("buyerId")
+    private int buyerId;
+
+    @JsonProperty("itemList")
+    private ItemList itemList;
+
     private String note;
     private boolean paid = false;
-    private  Status status;
+    private Status status = Status.OPEN;
 
-    public Invoice(int invoice_num) {
-        this.invoice_num = invoice_num;
-    }
+    public Invoice() {}
 
-    public Invoice(@JsonProperty("invoice_num") int invoice_num,
-                   @JsonProperty("header") String header,
-                   @JsonProperty("issue_date") Date issue_date,
-                   @JsonProperty("due_date") Date due_date,
-                   @JsonProperty("delivery_date") Date delivery_date,
-                   @JsonProperty("seller") Seller seller,
-                   @JsonProperty("buyer") Buyer buyer,
-                   @JsonProperty("note") String note) {
-        this.invoice_num = invoice_num;
-        this.header = header;
-        this.issue_date = issue_date != null ? issue_date : new Date();
-        this.due_date = due_date;
-        this.delivery_date = delivery_date;
-        this.seller = seller;
-        this.buyer = buyer;
-        this.note = note;
+    public Invoice(@JsonProperty("issue_date") String issue_date,
+                   @JsonProperty("due_date") String due_date,
+                   @JsonProperty("delivery_date") String delivery_date,
+                   @JsonProperty("sellerId") int sellerId,
+                   @JsonProperty("buyerId") int buyerId,
+                   @JsonProperty("itemList") ItemList itemList) throws ParseException {
+
+        this.setDates(issue_date, due_date, delivery_date);
+        this.sellerId = sellerId;
+        this.buyerId = buyerId;
+        this.itemList = itemList;
         this.paid = false;
         this.status = Status.OPEN;
     }
 
+    private void setDates(String issue, String due, String delivery) throws ParseException {
+        this.issue_date = issue_date != null ? dateFormat.parse(issue) : new Date();
+        this.due_date = dateFormat.parse(due);
+        this.delivery_date = dateFormat.parse(delivery);
+    }
+
     public int getInvoice_num() {
         return invoice_num;
+    }
+
+    public void setInvoice_num(int invoice_num) {
+        this.invoice_num = invoice_num;
     }
 
     public String getHeader() {
@@ -58,40 +80,52 @@ public class Invoice {
         return issue_date;
     }
 
-    public void setIssue_date(Date issue_date) {
-        this.issue_date = issue_date;
+    @JsonSetter("issue_date")
+    public void setIssue_date(String issue_date) throws ParseException {
+        System.out.println("ISSUE DATE: " + issue_date);
+        this.issue_date = !issue_date.isBlank() ? dateFormat.parse(issue_date) : new Date();
     }
 
     public Date getDue_date() {
         return due_date;
     }
 
-    public void setDue_date(Date due_date) {
-        this.due_date = due_date;
+    @JsonSetter("due_date")
+    public void setDue_date(String due_date) throws ParseException {
+        this.due_date = dateFormat.parse(due_date);
     }
 
     public Date getDelivery_date() {
         return delivery_date;
     }
 
-    public void setDelivery_date(Date delivery_date) {
-        this.delivery_date = delivery_date;
+    @JsonSetter("delivery_date")
+    public void setDelivery_date(String delivery_date) throws ParseException {
+        this.delivery_date = dateFormat.parse(delivery_date);
     }
 
-    public Seller getSeller() {
-        return seller;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
+    public int getBuyerId() {
+        return buyerId;
     }
 
-    public void setBuyer(Buyer buyer) {
-        this.buyer = buyer;
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public ItemList getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(ItemList itemList) {
+        this.itemList = itemList;
     }
 
     public String getNote() {
@@ -126,8 +160,8 @@ public class Invoice {
                 ", issue_date=" + issue_date +
                 ", due_date=" + due_date +
                 ", delivery_date=" + delivery_date +
-                ", seller=" + seller +
-                ", buyer=" + buyer +
+                ", seller=" + sellerId +
+                ", buyer=" + buyerId +
                 ", note='" + note + '\'' +
                 '}';
     }

@@ -23,8 +23,8 @@ public class EntityService {
     }
 
     // Buyer
-    public boolean addBuyer(Buyer entity) {
-        return this.buyerDao.addEntity(entity);
+    public int addBuyer(Buyer buyer) {
+        return this.buyerDao.addEntity(buyer);
     }
 
     public boolean removeBuyer(int id) {
@@ -39,14 +39,14 @@ public class EntityService {
         return this.buyerDao.getEntities();
     }
 
-    public boolean updateBuyer(int id, Buyer entity) {
-        return this.buyerDao.updateEntity(id, entity);
+    public boolean updateBuyer(int id, Buyer buyer) {
+        return this.buyerDao.updateEntity(id, buyer);
     }
 
 
     // Seller
-    public boolean addSeller(Seller entity) {
-        return this.sellerDao.addEntity(entity);
+    public int addSeller(Seller seller) {
+        return this.sellerDao.addEntity(seller);
     }
 
     public boolean removeSeller(int id) {
@@ -61,7 +61,7 @@ public class EntityService {
         return this.sellerDao.getEntities();
     }
 
-    public boolean updateSeller(int id, Seller entity) {
-        return this.sellerDao.updateEntity(id, entity);
+    public boolean updateSeller(int id, Seller seller) {
+        return this.sellerDao.updateEntity(id, seller);
     }
 }

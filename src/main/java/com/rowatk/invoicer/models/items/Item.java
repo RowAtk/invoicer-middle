@@ -1,21 +1,26 @@
 package com.rowatk.invoicer.models.items;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class Item {
 
     private int item_id;
+
+    @NotBlank
     private String description;
+
     @NotNull
     private double quantity;
+
     @NotNull
     private double unit_price;
 
     public Item() {}
 
-    public Item(int item_id, String description, double quantity, double unit_price) {
-        this.item_id = item_id;
+    public Item(@JsonProperty("description") String description, @JsonProperty("quantity") double quantity, @JsonProperty("unit_price") double unit_price) {
         this.description = description;
         this.quantity = quantity;
         this.unit_price = unit_price;

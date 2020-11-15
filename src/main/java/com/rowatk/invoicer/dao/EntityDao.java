@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface EntityDao {
 
-    boolean addEntity(Entity entity);
+    int addEntity(Entity entity);
     boolean removeEntityById(int id);
     Optional<Entity> getEntityById(int id);
     List<Entity> getEntities();

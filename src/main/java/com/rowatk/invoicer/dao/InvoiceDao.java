@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface InvoiceDao {
 
-    boolean addInvoice(Invoice invoice);
+    int addInvoice(Invoice invoice);
     boolean removeInvoiceById(int id);
     Optional<Invoice> getInvoiceById(int id);
     List<Invoice> getInvoices();

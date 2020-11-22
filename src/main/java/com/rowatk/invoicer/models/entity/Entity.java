@@ -2,19 +2,33 @@ package com.rowatk.invoicer.models.entity;
 
 import com.rowatk.invoicer.models.common.Address;
 
+import javax.persistence.Embedded;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@MappedSuperclass
 public abstract class Entity implements Comparable<Entity>{
 
+    @Id
+    @GeneratedValue
     private int id;
+
     @NotBlank
     private String company_name;
+
+    @Embedded
     private Address address;
+
     @NotNull
     private String phone;
+
     @NotNull
     private String email;
+
+    public Entity() { }
 
     public Entity(String company_name, Address address, String phone, String email) {
         this.company_name = company_name;

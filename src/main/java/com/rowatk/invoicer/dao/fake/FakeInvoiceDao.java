@@ -1,5 +1,6 @@
-package com.rowatk.invoicer.dao;
+package com.rowatk.invoicer.dao.fake;
 
+import com.rowatk.invoicer.dao.InvoiceDao;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import org.springframework.stereotype.Repository;
 

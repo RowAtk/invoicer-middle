@@ -1,12 +1,13 @@
-package com.rowatk.invoicer.dao;
+package com.rowatk.invoicer.dao.fake;
 
+import com.rowatk.invoicer.dao.EntityDao;
 import com.rowatk.invoicer.models.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class FakeEntityDao implements EntityDao{
+public abstract class FakeEntityDao implements EntityDao {
 
     private final List<Entity> DB = new ArrayList<>();
 

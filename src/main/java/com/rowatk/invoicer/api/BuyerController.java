@@ -41,7 +41,7 @@ public class BuyerController {
 
     @GetMapping("{buyerId}")
     public ResponseEntity getBuyerById(@PathVariable("buyerId") int id) {
-        Optional<Entity> buyer = this.entityService.getBuyerById(id);
+        Optional<Buyer> buyer = this.entityService.getBuyerById(id);
         if(buyer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No buyer with ID: " + id));
         }
@@ -50,7 +50,7 @@ public class BuyerController {
 
     @DeleteMapping("{buyerId}")
     public ResponseEntity removeBuyer(@PathVariable("buyerId") int id) {
-        Optional<Entity> buyer = this.entityService.getBuyerById(id);
+        Optional<Buyer> buyer = this.entityService.getBuyerById(id);
         if(buyer.isPresent()) {
             if(this.entityService.removeBuyer(id)) {
                 return ResponseEntity.ok(new SimpleResponse("Buyer \'" + buyer.get().getCompany_name()+ "\' removed successfully"));

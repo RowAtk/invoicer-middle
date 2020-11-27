@@ -1,6 +1,9 @@
 package com.rowatk.invoicer.services;
 
 import com.rowatk.invoicer.dao.EntityDao;
+import com.rowatk.invoicer.dao.EntityRepository;
+import com.rowatk.invoicer.dao.postgres.PgBuyerRepository;
+import com.rowatk.invoicer.dao.postgres.PgSellerRepository;
 import com.rowatk.invoicer.models.entity.Buyer;
 import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.models.entity.Seller;
@@ -14,54 +17,44 @@ import java.util.List;
 @Service
 public class EntityService {
 
-    private final EntityDao buyerDao, sellerDao;
+    private final EntityRepository<Buyer, Integer> buyerRepository;
+    private final EntityRepository<Seller, Integer> sellerRepository;
 
     @Autowired
-    public EntityService(@Qualifier("fakeBuyer") EntityDao buyerDao, @Qualifier("fakeSeller") EntityDao sellerDao) {
-        this.buyerDao = buyerDao;
-        this.sellerDao = sellerDao;
+    public EntityService(
+            @Qualifier("PgBuyer") EntityRepository<Buyer, Integer> buyerRepository,
+            @Qualifier("PgSeller") EntityRepository<Seller, Integer> sellerRepository) {
+        this.buyerRepository = buyerRepository;
+        this.sellerRepository = sellerRepository;
     }
 
     // Buyer
     public int addBuyer(Buyer buyer) {
-        return this.buyerDao.addEntity(buyer);
+        return this.buyerRepository.save(buyer).getId();
+    }
+
+    public Optional<Buyer> getBuyerById(int id) {
+        return this.buyerRepository.findById(id);
+    }
+
+    public Iterable<Buyer> getBuyers() {
+        return this.buyerRepository.findAll();
     }
 
     public boolean removeBuyer(int id) {
-        return this.buyerDao.removeEntityById(id);
-    }
-
-    public Optional<Entity> getBuyerById(int id) {
-        return this.buyerDao.getEntityById(id);
-    }
-
-    public List<Entity> getBuyers() {
-        return this.buyerDao.getEntities();
+        if(this.buyerRepository.existsById(id)) {
+            this.buyerRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     public boolean updateBuyer(int id, Buyer buyer) {
-        return this.buyerDao.updateEntity(id, buyer);
-    }
-
-
-    // Seller
-    public int addSeller(Seller seller) {
-        return this.sellerDao.addEntity(seller);
-    }
-
-    public boolean removeSeller(int id) {
-        return this.sellerDao.removeEntityById(id);
-    }
-
-    public Optional<Entity> getSellerById(int id) {
-        return this.sellerDao.getEntityById(id);
-    }
-
-    public List<Entity> getSellers() {
-        return this.sellerDao.getEntities();
-    }
-
-    public boolean updateSeller(int id, Seller seller) {
-        return this.sellerDao.updateEntity(id, seller);
+        if(this.buyerRepository.existsById(id)) {
+            buyer.setId(id);
+            this.buyerRepository.save(buyer);
+            return true;
+        }
+        return false;
     }
 }

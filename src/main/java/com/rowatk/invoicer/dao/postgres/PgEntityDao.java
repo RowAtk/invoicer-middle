@@ -40,7 +40,7 @@ public abstract class PgEntityDao implements EntityDao {
     @Override
     public List<Entity> getEntities() {
         String sql = "SELECT * from " + table;
-        PreparedStatement ps = 
+//        PreparedStatement ps =
         return null;
     }
 

@@ -7,5 +7,8 @@ CREATE TABLE IF NOT EXISTS buyers (
     country VARCHAR(50),
     zip VARCHAR(15),
     phone VARCHAR(20),
-    email VARCHAR(255)
+    email VARCHAR(255),
+    primary key(id)
 );
+
+CREATE SEQUENCE ent_seq START 2;

@@ -2,10 +2,7 @@ package com.rowatk.invoicer.models.entity;
 
 import com.rowatk.invoicer.models.common.Address;
 
-import javax.persistence.Embedded;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -13,7 +10,12 @@ import javax.validation.constraints.NotNull;
 public abstract class Entity implements Comparable<Entity>{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ent_seq")
+    @SequenceGenerator(
+            name = "ent_seq",
+            sequenceName = "ent_seq",
+            allocationSize = 1
+    )
     private int id;
 
     @NotBlank

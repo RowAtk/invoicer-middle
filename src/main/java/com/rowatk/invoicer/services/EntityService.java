@@ -1,18 +1,13 @@
 package com.rowatk.invoicer.services;
 
-import com.rowatk.invoicer.dao.EntityDao;
 import com.rowatk.invoicer.dao.EntityRepository;
-import com.rowatk.invoicer.dao.postgres.PgBuyerRepository;
-import com.rowatk.invoicer.dao.postgres.PgSellerRepository;
 import com.rowatk.invoicer.models.entity.Buyer;
-import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.models.entity.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.List;
 
 @Service
 public class EntityService {
@@ -22,8 +17,8 @@ public class EntityService {
 
     @Autowired
     public EntityService(
-            @Qualifier("PgBuyer") EntityRepository<Buyer, Integer> buyerRepository,
-            @Qualifier("PgSeller") EntityRepository<Seller, Integer> sellerRepository) {
+            @Qualifier("fakeBuyer") EntityRepository<Buyer, Integer> buyerRepository,
+            @Qualifier("fakeSeller") EntityRepository<Seller, Integer> sellerRepository) {
         this.buyerRepository = buyerRepository;
         this.sellerRepository = sellerRepository;
     }

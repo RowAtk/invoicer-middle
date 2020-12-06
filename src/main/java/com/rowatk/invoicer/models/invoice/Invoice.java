@@ -2,17 +2,32 @@ package com.rowatk.invoicer.models.invoice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.rowatk.invoicer.dao.generators.InvoiceGenerator;
 import com.rowatk.invoicer.models.items.ItemList;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Entity
+@Table(name = "invoices")
 public class Invoice {
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    private int invoice_num;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inv_seq")
+    @GenericGenerator(
+            name = "inv_seq",
+            strategy = "com.rowatk.invoicer.dao.generators.InvoiceGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = InvoiceGenerator.VALUE_PREFIX_PARAMETER, value = "INV"),
+                    @org.hibernate.annotations.Parameter(name = InvoiceGenerator.PAD_SIZE_PARAMETER, value = "5")
+            }
+    )
+    private String invoice_num;
     private String header;
 
     @JsonProperty("issue_date")
@@ -60,11 +75,11 @@ public class Invoice {
         this.delivery_date = dateFormat.parse(delivery);
     }
 
-    public int getInvoice_num() {
+    public String getInvoice_num() {
         return invoice_num;
     }
 
-    public void setInvoice_num(int invoice_num) {
+    public void setInvoice_num(String invoice_num) {
         this.invoice_num = invoice_num;
     }
 
@@ -80,28 +95,40 @@ public class Invoice {
         return issue_date;
     }
 
+    public void setIssue_date(Date issue_date) {
+        this.issue_date = issue_date;
+    }
+
     @JsonSetter("issue_date")
     public void setIssue_date(String issue_date) throws ParseException {
         System.out.println("ISSUE DATE: " + issue_date);
-        this.issue_date = !issue_date.isBlank() ? dateFormat.parse(issue_date) : new Date();
+        this.setIssue_date(!issue_date.isBlank() ? dateFormat.parse(issue_date) : new Date());
     }
 
     public Date getDue_date() {
         return due_date;
     }
 
+    public void setDue_date(Date due_date) {
+        this.due_date = due_date;
+    }
+
     @JsonSetter("due_date")
     public void setDue_date(String due_date) throws ParseException {
-        this.due_date = dateFormat.parse(due_date);
+        this.setDue_date(dateFormat.parse(due_date));
     }
 
     public Date getDelivery_date() {
         return delivery_date;
     }
 
+    public void setDelivery_date(Date delivery_date) {
+        this.delivery_date = delivery_date;
+    }
+
     @JsonSetter("delivery_date")
     public void setDelivery_date(String delivery_date) throws ParseException {
-        this.delivery_date = dateFormat.parse(delivery_date);
+        this.setDelivery_date(dateFormat.parse(delivery_date));
     }
 
     public int getSellerId() {

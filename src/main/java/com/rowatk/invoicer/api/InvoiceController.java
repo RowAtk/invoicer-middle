@@ -19,14 +19,14 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
-        int id = this.invoiceService.addInvoice(invoice);
-        if(id >= 0)
-            return ResponseEntity.ok(new SimpleResponse("Invoice id: \'" + id + "\' was added"));
+        Invoice new_invoice = this.invoiceService.addInvoice(invoice);
+        if(new_invoice != null)
+            return ResponseEntity.ok(new SimpleResponse("Invoice " + new_invoice.getInvoice_num() + " was added"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice"));
     }
 
     @GetMapping("{invoiceId}")
-    public ResponseEntity getInvoiceById(@PathVariable("invoiceId") int id) {
+    public ResponseEntity getInvoiceById(@PathVariable("invoiceId") String id) {
         Optional<Invoice> invoice = this.invoiceService.getInvoiceById(id);
         if(invoice.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
@@ -39,17 +39,17 @@ public class InvoiceController {
     }
 
     @DeleteMapping("{invoiceId}")
-    public ResponseEntity removeInvoice(@PathVariable("invoiceId") int id) {
+    public ResponseEntity removeInvoice(@PathVariable("invoiceId") String id) {
         boolean result = this.invoiceService.removeInvoice(id);
         if(result)
-            return ResponseEntity.ok(new SimpleResponse("Invoice with number: \'" + id + "\' removed successfully"));
+            return ResponseEntity.ok(new SimpleResponse("Invoice " + id + " removed successfully"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
     }
 
     @PutMapping("{invoiceId}")
-    public ResponseEntity updateInvoice(@PathVariable("invoiceId") int id, @RequestBody Invoice invoice) {
+    public ResponseEntity updateInvoice(@PathVariable("invoiceId") String id, @RequestBody Invoice invoice) {
         if(this.invoiceService.updateInvoice(id, invoice))
-            return ResponseEntity.ok(new SimpleResponse("Invoice with number: \'" + id + "\' updated successfully"));
+            return ResponseEntity.ok(new SimpleResponse("Invoice " + id + " updated successfully"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
     }
 

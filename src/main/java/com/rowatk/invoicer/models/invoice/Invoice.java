@@ -2,7 +2,7 @@ package com.rowatk.invoicer.models.invoice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.rowatk.invoicer.dao.generators.InvoiceGenerator;
+import com.rowatk.invoicer.dao.generators.PaddedStringGenerator;
 import com.rowatk.invoicer.models.items.ItemList;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,8 +23,8 @@ public class Invoice {
             name = "inv_seq",
             strategy = "com.rowatk.invoicer.dao.generators.InvoiceGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = InvoiceGenerator.VALUE_PREFIX_PARAMETER, value = "INV"),
-                    @org.hibernate.annotations.Parameter(name = InvoiceGenerator.PAD_SIZE_PARAMETER, value = "5")
+                    @org.hibernate.annotations.Parameter(name = PaddedStringGenerator.VALUE_PREFIX_PARAMETER, value = "INV"),
+                    @org.hibernate.annotations.Parameter(name = PaddedStringGenerator.PAD_SIZE_PARAMETER, value = "5")
             }
     )
     private String invoice_num;
@@ -45,8 +45,7 @@ public class Invoice {
     @JsonProperty("buyerId")
     private int buyerId;
 
-    @JsonProperty("itemList")
-    private ItemList itemList;
+    uy
 
     private String note;
     private boolean paid = false;

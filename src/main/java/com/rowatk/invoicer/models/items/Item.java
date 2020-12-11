@@ -2,12 +2,24 @@ package com.rowatk.invoicer.models.items;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "items")
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq")
+    @SequenceGenerator(
+            name = "item_seq",
+            sequenceName = "item_seq",
+            allocationSize = 1
+    )
     private int item_id;
+
+    private String invoice_num;
 
     @NotBlank
     private String description;

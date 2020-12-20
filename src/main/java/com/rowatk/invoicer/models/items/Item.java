@@ -2,12 +2,19 @@ package com.rowatk.invoicer.models.items;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "items")
 public class Item {
 
-    private int item_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long item_id;
+
+    private Long invoice_num;
 
     @NotBlank
     private String description;
@@ -26,12 +33,20 @@ public class Item {
         this.unit_price = unit_price;
     }
 
-    public int getItem_id() {
+    public Long getItem_id() {
         return item_id;
     }
 
-    public void setItem_id(int item_id) {
+    public void setItem_id(Long item_id) {
         this.item_id = item_id;
+    }
+
+    public Long getInvoice_num() {
+        return invoice_num;
+    }
+
+    public void setInvoice_num(Long invoice_num) {
+        this.invoice_num = invoice_num;
     }
 
     public String getDescription() {

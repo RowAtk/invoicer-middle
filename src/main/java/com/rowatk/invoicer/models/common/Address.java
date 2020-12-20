@@ -1,7 +1,9 @@
 package com.rowatk.invoicer.models.common;
 
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
+@Embeddable
 public class Address implements Comparable<Address>{
 
     @NotBlank
@@ -12,6 +14,8 @@ public class Address implements Comparable<Address>{
     @NotBlank
     private String country;
     private String zip;
+
+    public Address() { }
 
     public Address(String street1, String street2, String city, String country, String zip) {
         this.street1 = street1;

@@ -2,19 +2,30 @@ package com.rowatk.invoicer.models.entity;
 
 import com.rowatk.invoicer.models.common.Address;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@MappedSuperclass
 public abstract class Entity implements Comparable<Entity>{
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotBlank
     private String company_name;
+
+    @Embedded
     private Address address;
+
     @NotNull
     private String phone;
+
     @NotNull
     private String email;
+
+    public Entity() { }
 
     public Entity(String company_name, Address address, String phone, String email) {
         this.company_name = company_name;
@@ -23,11 +34,11 @@ public abstract class Entity implements Comparable<Entity>{
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

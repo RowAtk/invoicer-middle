@@ -21,4 +21,5 @@ public class Seller extends Entity{
     public String toString() {
         return super.toString("Seller");
     }
+
 }

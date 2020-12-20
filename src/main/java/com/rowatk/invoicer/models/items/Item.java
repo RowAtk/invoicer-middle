@@ -11,15 +11,10 @@ import javax.validation.constraints.NotNull;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq")
-    @SequenceGenerator(
-            name = "item_seq",
-            sequenceName = "item_seq",
-            allocationSize = 1
-    )
-    private int item_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long item_id;
 
-    private String invoice_num;
+    private Long invoice_num;
 
     @NotBlank
     private String description;
@@ -38,12 +33,20 @@ public class Item {
         this.unit_price = unit_price;
     }
 
-    public int getItem_id() {
+    public Long getItem_id() {
         return item_id;
     }
 
-    public void setItem_id(int item_id) {
+    public void setItem_id(Long item_id) {
         this.item_id = item_id;
+    }
+
+    public Long getInvoice_num() {
+        return invoice_num;
+    }
+
+    public void setInvoice_num(Long invoice_num) {
+        this.invoice_num = invoice_num;
     }
 
     public String getDescription() {

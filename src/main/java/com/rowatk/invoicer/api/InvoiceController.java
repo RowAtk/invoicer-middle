@@ -26,7 +26,7 @@ public class InvoiceController {
     }
 
     @GetMapping("{invoiceId}")
-    public ResponseEntity getInvoiceById(@PathVariable("invoiceId") String id) {
+    public ResponseEntity getInvoiceById(@PathVariable("invoiceId") Long id) {
         Optional<Invoice> invoice = this.invoiceService.getInvoiceById(id);
         if(invoice.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
@@ -39,7 +39,7 @@ public class InvoiceController {
     }
 
     @DeleteMapping("{invoiceId}")
-    public ResponseEntity removeInvoice(@PathVariable("invoiceId") String id) {
+    public ResponseEntity removeInvoice(@PathVariable("invoiceId") Long id) {
         boolean result = this.invoiceService.removeInvoice(id);
         if(result)
             return ResponseEntity.ok(new SimpleResponse("Invoice " + id + " removed successfully"));
@@ -47,7 +47,7 @@ public class InvoiceController {
     }
 
     @PutMapping("{invoiceId}")
-    public ResponseEntity updateInvoice(@PathVariable("invoiceId") String id, @RequestBody Invoice invoice) {
+    public ResponseEntity updateInvoice(@PathVariable("invoiceId") Long id, @RequestBody Invoice invoice) {
         if(this.invoiceService.updateInvoice(id, invoice))
             return ResponseEntity.ok(new SimpleResponse("Invoice " + id + " updated successfully"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));

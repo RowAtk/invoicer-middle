@@ -1,30 +1,31 @@
-package com.rowatk.invoicer.dao.fake;
+package com.rowatk.invoicer.respositories.fake;
 
-import com.rowatk.invoicer.dao.InvoiceRepository;
+import com.rowatk.invoicer.respositories.InvoiceRepository;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Repository;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository("fakeInvoice")
 public class FakeInvoiceRepository implements InvoiceRepository {
 
     private List<Invoice> DB = new ArrayList<>();
 
-    private String genId() {
+    private Long genId() {
         int size = this.DB.size();
         if(size > 0) {
-            return String.valueOf(Integer.parseInt(this.DB.get(size-1).getInvoice_num()) + 1);
+            return this.DB.get(size-1).getInvoice_num() + 1;
         }
-        return "1";
+        return 1L;
     }
 
     @Override
     @NonNull
     public <S extends Invoice> S save(@NonNull S s) {
-        String id = null;
+        Long id = null;
         try {
             id = this.genId();
             s.setInvoice_num(id);
@@ -37,14 +38,14 @@ public class FakeInvoiceRepository implements InvoiceRepository {
 
     @Override
     @NonNull
-    public Optional<Invoice> findById(@NonNull String inv_num) {
+    public Optional<Invoice> findById(@NonNull Long inv_num) {
         return this.DB.stream()
                 .filter(invoice -> invoice.getInvoice_num().equals(inv_num))
                 .findFirst();
     }
 
     @Override
-    public boolean existsById(@NonNull String inv_num) {
+    public boolean existsById(@NonNull Long inv_num) {
         return this.DB.stream()
                 .anyMatch(invoice -> invoice.getInvoice_num().equals(inv_num));
     }
@@ -61,7 +62,7 @@ public class FakeInvoiceRepository implements InvoiceRepository {
     }
 
     @Override
-    public void deleteById(@NonNull String inv_num) {
+    public void deleteById(@NonNull Long inv_num) {
         this.DB.removeIf(inv -> inv.getInvoice_num().equals(inv_num));
     }
 
@@ -76,7 +77,7 @@ public class FakeInvoiceRepository implements InvoiceRepository {
     }
 
     @Override
-    public Iterable<Invoice> findAllById(Iterable<String> iterable) {
+    public Iterable<Invoice> findAllById(Iterable<Long> iterable) {
         return null;
     }
 

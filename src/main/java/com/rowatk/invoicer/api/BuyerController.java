@@ -16,16 +16,12 @@ import java.util.Optional;
 @RequestMapping("api/buyers")
 public class BuyerController {
 
-    private final EntityService entityService;
-
     @Autowired
-    public BuyerController(EntityService entityService) {
-        this.entityService = entityService;
-    }
+    private EntityService entityService;
 
     @PostMapping
     public ResponseEntity addBuyer(@RequestBody Buyer buyer) {
-        int result = this.entityService.addBuyer(buyer);
+        Long result = this.entityService.addBuyer(buyer);
         if(result >= 0) {
             return ResponseEntity.ok(new SimpleResponse("Buyer " + buyer.getCompany_name() + " added successfully"));
         }
@@ -36,11 +32,11 @@ public class BuyerController {
 
     @GetMapping
     public ResponseEntity getBuyers() {
-        return ResponseEntity.ok(entityService.getBuyers());
+        return ResponseEntity.ok(this.entityService.getBuyers());
     }
 
     @GetMapping("{buyerId}")
-    public ResponseEntity getBuyerById(@PathVariable("buyerId") int id) {
+    public ResponseEntity getBuyerById(@PathVariable("buyerId") Long id) {
         Optional<Buyer> buyer = this.entityService.getBuyerById(id);
         if(buyer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No buyer with ID: " + id));
@@ -49,7 +45,7 @@ public class BuyerController {
     }
 
     @DeleteMapping("{buyerId}")
-    public ResponseEntity removeBuyer(@PathVariable("buyerId") int id) {
+    public ResponseEntity removeBuyer(@PathVariable("buyerId") Long id) {
         Optional<Buyer> buyer = this.entityService.getBuyerById(id);
         if(buyer.isPresent()) {
             if(this.entityService.removeBuyer(id)) {
@@ -60,7 +56,7 @@ public class BuyerController {
     }
 
     @PutMapping("{buyerId}")
-    public ResponseEntity updateBuyer(@PathVariable("buyerId") int id, @RequestBody Buyer buyer) {
+    public ResponseEntity updateBuyer(@PathVariable("buyerId") Long id, @RequestBody Buyer buyer) {
         if(this.entityService.updateBuyer(id, buyer)) {
             return ResponseEntity.ok(new SimpleResponse("Buyer with ID \'" + id + "\' updated successfully"));
         }

@@ -1,4 +1,4 @@
-package com.rowatk.invoicer.dao.generators;
+package com.rowatk.invoicer.respositories.generators;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS buyers (
-    id INTEGER,
+    id SERIAL,
     company_name VARCHAR(100),
     street1 VARCHAR(120),
     street2 VARCHAR(120),
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS buyers (
 );
 
 CREATE TABLE IF NOT EXISTS sellers (
-    id INTEGER,
+    id SERIAL,
     company_name VARCHAR(100),
     street1 VARCHAR(120),
     street2 VARCHAR(120),
@@ -23,5 +23,3 @@ CREATE TABLE IF NOT EXISTS sellers (
     email VARCHAR(255),
     primary key(id)
 );
-
-CREATE SEQUENCE ent_seq START 2;

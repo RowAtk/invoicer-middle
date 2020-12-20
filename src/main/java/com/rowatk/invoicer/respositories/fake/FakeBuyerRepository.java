@@ -1,4 +1,4 @@
-package com.rowatk.invoicer.dao.fake;
+package com.rowatk.invoicer.respositories.fake;
 
 import com.rowatk.invoicer.models.entity.Buyer;
 import org.springframework.stereotype.Repository;

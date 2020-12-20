@@ -1,7 +1,8 @@
 package com.rowatk.invoicer;
 
-import com.rowatk.invoicer.dao.EntityRepository;
-import com.rowatk.invoicer.dao.InvoiceRepository;
+import com.rowatk.invoicer.respositories.EntityRepository;
+import com.rowatk.invoicer.respositories.InvoiceRepository;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,4 +23,6 @@ public class Config {
 //        dataSourceBuilder.password("password");
 //        dataSourceBuilder.
 //    }
+
+
 }

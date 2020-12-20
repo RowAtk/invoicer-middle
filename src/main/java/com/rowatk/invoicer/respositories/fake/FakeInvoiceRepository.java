@@ -2,6 +2,7 @@ package com.rowatk.invoicer.respositories.fake;
 
 import com.rowatk.invoicer.respositories.InvoiceRepository;
 import com.rowatk.invoicer.models.invoice.Invoice;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("fakeInvoice")
+@ConditionalOnProperty(value = "db.mode", havingValue = "fake")
 public class FakeInvoiceRepository implements InvoiceRepository {
 
     private List<Invoice> DB = new ArrayList<>();

@@ -1,17 +1,15 @@
 package com.rowatk.invoicer.services;
 
-import com.rowatk.invoicer.respositories.EntityRepository;
 import com.rowatk.invoicer.models.entity.Buyer;
 import com.rowatk.invoicer.models.entity.Seller;
+import com.rowatk.invoicer.respositories.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class EntityService {
+public class EntityService1 {
 
     @Autowired
     private EntityRepository<Buyer, Long> buyerRepository;

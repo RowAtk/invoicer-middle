@@ -4,6 +4,7 @@ import com.rowatk.invoicer.respositories.InvoiceRepository;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,12 +12,8 @@ import java.util.Optional;
 @Service
 public class InvoiceService {
 
-    private final InvoiceRepository invoiceRepository;
-
     @Autowired
-    public InvoiceService(@Qualifier("fakeInvoice") InvoiceRepository invoiceRepository) {
-        this.invoiceRepository = invoiceRepository;
-    }
+    private InvoiceRepository invoiceRepository;
 
     public Invoice addInvoice(Invoice invoice){
         return this.invoiceRepository.save(invoice);

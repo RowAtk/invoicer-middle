@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = {InvoiceRepository.class, EntityRepository.class}, basePackages = {"com.rowatk.invoicer.dao"})
+@EnableJpaRepositories(basePackageClasses = {InvoiceRepository.class, EntityRepository.class}, basePackages = {"com.rowatk.invoicer.repositories"})
 public class Config {
 
 //    @Bean

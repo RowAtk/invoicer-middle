@@ -3,9 +3,11 @@ package com.rowatk.invoicer.models.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rowatk.invoicer.models.common.Address;
 
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 @javax.persistence.Entity
+@Table(name = "sellers")
 public class Seller extends Entity{
 
     public Seller() {

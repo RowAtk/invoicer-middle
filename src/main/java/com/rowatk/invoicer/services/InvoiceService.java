@@ -3,8 +3,6 @@ package com.rowatk.invoicer.services;
 import com.rowatk.invoicer.respositories.InvoiceRepository;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

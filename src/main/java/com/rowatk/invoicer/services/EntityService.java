@@ -1,51 +1,63 @@
 package com.rowatk.invoicer.services;
 
+import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.respositories.EntityRepository;
-import com.rowatk.invoicer.models.entity.Buyer;
-import com.rowatk.invoicer.models.entity.Seller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
-public class EntityService {
+public abstract class EntityService<T extends Entity> {
+
+    private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
 
     @Autowired
-    private EntityRepository<Buyer, Long> buyerRepository;
+    protected EntityRepository<T, Long> repository;
 
-    @Autowired
-    private EntityRepository<Seller, Long> sellerRepository;
+    private String type;
 
-    // Buyer
-    public Long addBuyer(Buyer buyer) {
-        return this.buyerRepository.save(buyer).getId();
+    public EntityService(String type) {
+        this.type = type;
     }
 
-    public Optional<Buyer> getBuyerById(Long id) {
-        return this.buyerRepository.findById(id);
+    public String getType() {
+        return type;
     }
 
-    public Iterable<Buyer> getBuyers() {
-        return this.buyerRepository.findAll();
+    // Entity
+    public T add(T entity) {
+        T result = null;
+        try { result = this.repository.save(entity); }
+        catch(Exception e) {
+            logger.error("Error saving " + this.type + ": " + e.getMessage());
+        }
+        return result;
     }
 
-    public boolean removeBuyer(Long id) {
-        if(this.buyerRepository.existsById(id)) {
-            this.buyerRepository.deleteById(id);
+    public Optional<T> findById(Long id) {
+        return this.repository.findById(id);
+    }
+
+    public Iterable<T> findAll() {
+        return this.repository.findAll();
+    }
+
+    public boolean removeById(Long id) {
+        if(this.repository.existsById(id)) {
+            this.repository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    public boolean updateBuyer(Long id, Buyer buyer) {
-        if(this.buyerRepository.existsById(id)) {
-            buyer.setId(id);
-            this.buyerRepository.save(buyer);
+    public boolean updateById(Long id, T entity) {
+        if(this.repository.existsById(id)) {
+            entity.setId(id);
+            this.repository.save(entity);
             return true;
         }
         return false;
     }
+
 }

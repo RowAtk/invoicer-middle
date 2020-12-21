@@ -2,6 +2,7 @@ package com.rowatk.invoicer.api;
 
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.invoice.Invoice;
+import com.rowatk.invoicer.models.requests.CreateInvoiceRequest;
 import com.rowatk.invoicer.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,8 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping
-    public ResponseEntity addInvoice(@RequestBody Invoice invoice) {
-        Invoice new_invoice = this.invoiceService.addInvoice(invoice);
+    public ResponseEntity addInvoice(@RequestBody CreateInvoiceRequest request) {
+        Invoice new_invoice = this.invoiceService.addInvoice(request.getInvoice());
         if(new_invoice != null)
             return ResponseEntity.ok(new SimpleResponse("Invoice " + new_invoice.getInvoice_num() + " was added"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice"));

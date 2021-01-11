@@ -1,11 +1,10 @@
-package com.rowatk.invoicer.models.invoice;
+package com.rowatk.invoicer.dto.model;
 
 import com.rowatk.invoicer.models.entity.Buyer;
 import com.rowatk.invoicer.models.entity.Seller;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
+import com.rowatk.invoicer.models.invoice.InvoiceBase;
 
-public class InvoiceResponse extends InvoiceBase {
+public class InvoiceEntityDTO extends InvoiceBase {
 
     private Seller seller;
     private Buyer buyer;
@@ -42,6 +41,3 @@ public class InvoiceResponse extends InvoiceBase {
                 '}';
     }
 }
-
-
-

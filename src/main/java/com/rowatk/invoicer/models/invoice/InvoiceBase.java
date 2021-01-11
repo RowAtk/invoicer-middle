@@ -29,12 +29,6 @@ public abstract class InvoiceBase {
     @JsonProperty("delivery_date")
     protected Date delivery_date;
 
-    @JsonProperty("sellerId")
-    protected int sellerId;
-
-    @JsonProperty("buyerId")
-    protected int buyerId;
-
     protected String note;
     protected boolean paid = false;
     protected Status status = Status.OPEN;
@@ -87,22 +81,6 @@ public abstract class InvoiceBase {
     @JsonSetter("delivery_date")
     public void setDelivery_date(String delivery_date) throws ParseException {
         this.setDelivery_date(dateFormat.parse(delivery_date));
-    }
-
-    public int getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
-    }
-
-    public int getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(int buyerId) {
-        this.buyerId = buyerId;
     }
 
     public String getNote() {

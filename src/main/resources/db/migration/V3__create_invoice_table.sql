@@ -8,14 +8,16 @@ CREATE TABLE IF NOT EXISTS invoices (
     note VARCHAR(255),
     paid BOOLEAN,
     status varchar(20),
-    primary key(invoice_num)
+    PRIMARY KEY(invoice_num)
 );
 
 -- ITEMS
 CREATE TABLE IF NOT EXISTS items (
-    item_id SERIAL,
-    invoice_num VARCHAR(8),
+    item_id INTEGER,
+    invoice_num INTEGER,
     description VARCHAR(255),
     quantity DECIMAL,
-    unit_price DECIMAL
+    unit_price DECIMAL,
+    PRIMARY KEY(item_id, invoice_num),
+    FOREIGN KEY (invoice_num) REFERENCES invoices(invoice_num) ON DELETE CASCADE
 );

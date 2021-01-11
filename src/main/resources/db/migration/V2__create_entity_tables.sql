@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS buyers (
     zip VARCHAR(15),
     phone VARCHAR(20),
     email VARCHAR(255),
-    primary key(id)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS sellers (
@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS sellers (
     zip VARCHAR(15),
     phone VARCHAR(20),
     email VARCHAR(255),
-    primary key(id)
+    PRIMARY KEY(id)
 );

@@ -1,4 +1,4 @@
-package com.rowatk.invoicer.api;
+package com.rowatk.invoicer.controller;
 
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.entity.Entity;

@@ -1,10 +1,10 @@
-package com.rowatk.invoicer.api;
+package com.rowatk.invoicer.controller;
 
 import com.rowatk.invoicer.models.entity.Buyer;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/buyers")
+@RequestMapping("/buyers")
 public class BuyerController extends EntityController<Buyer> {
 
 }

@@ -49,6 +49,15 @@ public abstract class EntityService<T extends Entity> {
             return true;
         }
         return false;
+//        try {
+//            logger.info("Attempting to remove entity");
+//            this.repository.deleteById(id);
+//            logger.info(type + " removed");
+//            return true;
+//        } catch (Exception e) {
+//            logger.error("id non-existent");
+//            return false;
+//        }
     }
 
     public boolean updateById(Long id, T entity) {

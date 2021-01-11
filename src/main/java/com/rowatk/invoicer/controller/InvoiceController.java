@@ -1,8 +1,8 @@
-package com.rowatk.invoicer.api;
+package com.rowatk.invoicer.controller;
 
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.invoice.Invoice;
-import com.rowatk.invoicer.models.requests.CreateInvoiceRequest;
+import com.rowatk.invoicer.dto.requests.CreateInvoiceRequest;
 import com.rowatk.invoicer.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/invoices")
+@RequestMapping("/invoices")
 public class InvoiceController {
 
     @Autowired

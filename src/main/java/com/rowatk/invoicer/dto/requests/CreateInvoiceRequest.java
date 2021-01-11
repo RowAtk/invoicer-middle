@@ -1,4 +1,4 @@
-package com.rowatk.invoicer.models.requests;
+package com.rowatk.invoicer.dto.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rowatk.invoicer.models.invoice.Invoice;

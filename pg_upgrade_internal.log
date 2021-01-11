@@ -1,0 +1,41 @@
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:23:19 2021
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:24:19 2021
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster data resides.
+Please use the -d command-line option or the PGDATAOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:26:11 2021
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster data resides.
+Please use the -d command-line option or the PGDATAOLD environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:31:10 2021
+-----------------------------------------------------------------
+
+You must identify the directory where the new cluster data resides.
+Please use the -D command-line option or the PGDATANEW environment variable.
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:43:28 2021
+-----------------------------------------------------------------
+
+check for "/opt/pgsql-PG_VERSION/bin" failed: No such file or directory
+
+
+-----------------------------------------------------------------
+  pg_upgrade run on Sun Jan 10 18:43:42 2021
+-----------------------------------------------------------------
+
+could not open version file "/var/lib/postgres/olddata/PG_VERSION": Permission denied

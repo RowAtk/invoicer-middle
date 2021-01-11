@@ -19,7 +19,6 @@ public abstract class InvoiceBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long invoice_num;
-    protected String header;
 
     @JsonProperty("issue_date")
     protected Date issue_date;
@@ -48,14 +47,6 @@ public abstract class InvoiceBase {
 
     public void setInvoice_num(Long invoice_num) {
         this.invoice_num = invoice_num;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
     }
 
     public Date getIssue_date() {

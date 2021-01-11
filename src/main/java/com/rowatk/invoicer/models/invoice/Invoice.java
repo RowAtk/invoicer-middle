@@ -39,7 +39,6 @@ public class Invoice extends InvoiceBase {
                 ", buyerId=" + buyerId +
                 ", dateFormat=" + dateFormat +
                 ", invoice_num='" + invoice_num + '\'' +
-                ", header='" + header + '\'' +
                 ", issue_date=" + issue_date +
                 ", due_date=" + due_date +
                 ", delivery_date=" + delivery_date +

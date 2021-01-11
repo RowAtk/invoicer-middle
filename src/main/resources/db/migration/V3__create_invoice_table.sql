@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS invoices (
     invoice_num SERIAL,
-    header VARCHAR(1000),
     issue_date DATE,
     due_date DATE,
     delivery_date DATE,

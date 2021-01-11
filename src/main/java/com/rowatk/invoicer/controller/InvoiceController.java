@@ -1,5 +1,6 @@
 package com.rowatk.invoicer.controller;
 
+import com.rowatk.invoicer.dto.model.InvoiceDTO;
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import com.rowatk.invoicer.dto.requests.CreateInvoiceRequest;
@@ -20,15 +21,14 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity addInvoice(@RequestBody CreateInvoiceRequest request) {
-        Invoice new_invoice = this.invoiceService.addInvoice(request.getInvoice());
-        if(new_invoice != null)
-            return ResponseEntity.ok(new SimpleResponse("Invoice " + new_invoice.getInvoice_num() + " was added"));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice"));
+        Optional<InvoiceDTO> invoice = this.invoiceService.addInvoice(request.getInvoice());
+        return invoice.map(invoiceDTO -> ResponseEntity.ok(new SimpleResponse("Invoice " + invoiceDTO.getInvoice_num() + " was added")))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice")));
     }
 
     @GetMapping("{invoiceId}")
     public ResponseEntity getInvoiceById(@PathVariable("invoiceId") Long id) {
-        Optional<Invoice> invoice = this.invoiceService.getInvoiceById(id);
+        Optional<InvoiceDTO> invoice = this.invoiceService.getInvoiceById(id);
         if(invoice.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
         return ResponseEntity.ok(invoice.get());

@@ -7,7 +7,7 @@ import com.rowatk.invoicer.models.invoice.Invoice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface InvoiceMapper {
 
     Invoice dtoToInvoice(InvoiceDTO dto);

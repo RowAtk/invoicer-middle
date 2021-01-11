@@ -6,6 +6,8 @@ import com.rowatk.invoicer.models.items.Item;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper
 public interface ItemMapper {
 
@@ -14,5 +16,5 @@ public interface ItemMapper {
     ItemDTO itemToDTO(Item item);
 
     @Mapping(target = ".", source = "items")
-    Iterable<ItemDTO> requestToDTO(CreateInvoiceRequest request);
+    Iterable<ItemDTO> requestToDTO(Iterable<Item> items);
 }

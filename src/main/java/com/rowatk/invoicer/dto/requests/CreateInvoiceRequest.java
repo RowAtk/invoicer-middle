@@ -5,6 +5,7 @@ import com.rowatk.invoicer.dto.model.InvoiceDTO;
 import com.rowatk.invoicer.dto.model.ItemDTO;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class CreateInvoiceRequest {
 
@@ -12,7 +13,7 @@ public class CreateInvoiceRequest {
     private InvoiceDTO invoice;
 
     @JsonProperty("items")
-    private ItemDTO[] items;
+    private List<ItemDTO> items;
 
     public InvoiceDTO getInvoice() {
         return invoice;
@@ -22,11 +23,11 @@ public class CreateInvoiceRequest {
         this.invoice = invoice;
     }
 
-    public ItemDTO[] getItems() {
+    public List<ItemDTO> getItems() {
         return items;
     }
 
-    public void setItems(ItemDTO[] items) {
+    public void setItems(List<ItemDTO> items) {
         this.items = items;
     }
 
@@ -34,7 +35,7 @@ public class CreateInvoiceRequest {
     public String toString() {
         return "CreateInvoiceRequest{" +
                 "invoice=" + invoice +
-                ", items=" + Arrays.toString(items) +
+                ", items=" + items +
                 '}';
     }
 }

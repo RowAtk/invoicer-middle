@@ -15,6 +15,7 @@ public interface ItemMapper {
 
     ItemDTO itemToDTO(Item item);
 
-    @Mapping(target = ".", source = "items")
-    Iterable<ItemDTO> requestToDTO(Iterable<Item> items);
+    List<ItemDTO> itemsToDTO(Iterable<Item> items);
+
+    List<Item> dtoToItems(Iterable<ItemDTO> items);
 }

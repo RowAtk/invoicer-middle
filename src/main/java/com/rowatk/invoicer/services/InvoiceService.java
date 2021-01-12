@@ -2,6 +2,7 @@ package com.rowatk.invoicer.services;
 
 import com.rowatk.invoicer.dto.mappers.InvoiceMapper;
 import com.rowatk.invoicer.dto.model.InvoiceDTO;
+import com.rowatk.invoicer.dto.requests.CreateInvoiceRequest;
 import com.rowatk.invoicer.respositories.InvoiceRepository;
 import com.rowatk.invoicer.models.invoice.Invoice;
 import org.slf4j.Logger;
@@ -18,19 +19,29 @@ public class InvoiceService {
     private static final Logger logger = LoggerFactory.getLogger(InvoiceService.class);
 
     @Autowired
+    private ItemService itemService;
+
+    @Autowired
     private InvoiceRepository invoiceRepository;
 
     @Autowired
     private InvoiceMapper invoiceMapper;
 
-    public Optional<InvoiceDTO> addInvoice(InvoiceDTO invoice){
+    public Optional<InvoiceDTO> addInvoice(CreateInvoiceRequest request) {
         InvoiceDTO result = null;
+
         try {
-            Invoice new_invoice = this.invoiceRepository.save(invoiceMapper.dtoToInvoice(invoice));
+            // save invoice
+            Invoice new_invoice = this.invoiceRepository.save(invoiceMapper.dtoToInvoice(request.getInvoice()));
             result = invoiceMapper.invoiceToDTO(new_invoice);
+
+            // save invoice items
+            itemService.saveAll(request.getItems());
+
         } catch (Exception e) {
             logger.error("Failed to save new invoice: " + e.getMessage());
         }
+
         return Optional.ofNullable(result);
     }
 

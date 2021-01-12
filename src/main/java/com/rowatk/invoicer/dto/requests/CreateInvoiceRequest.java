@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rowatk.invoicer.dto.model.InvoiceDTO;
 import com.rowatk.invoicer.dto.model.ItemDTO;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CreateInvoiceRequest {

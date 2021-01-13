@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Table(name = "invoices")
 public class Invoice extends InvoiceBase {
 
-    @JsonProperty("seller_id")
+    @JsonProperty("sellerId")
     private int sellerId;
 
-    @JsonProperty("buyer_id")
+    @JsonProperty("buyerId")
     private int buyerId;
 
     public Invoice() {}

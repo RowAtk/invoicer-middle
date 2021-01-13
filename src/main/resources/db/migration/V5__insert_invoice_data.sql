@@ -1,7 +1,7 @@
 -- Invoice data
-INSERT INTO invoices (issue_date, due_date, deliveryDate, seller_id, buyer_id, note, paid, status) VALUES
-    (CURRENT_DATE, CURRENT_DATE + 5, CURRENT_DATE + 6, 1, 1, '', false, 'open'),
-    (CURRENT_DATE, CURRENT_DATE + 15, CURRENT_DATE + 23, 1, 2, 'to be paid in full', false, 'open');
+INSERT INTO invoices (issue_date, due_date, delivery_date, seller_id, buyer_id, note, paid, status) VALUES
+    (CURRENT_DATE, CURRENT_DATE + 5, CURRENT_DATE + 6, 1, 1, '', false, 'OPEN'),
+    (CURRENT_DATE, CURRENT_DATE + 15, CURRENT_DATE + 23, 1, 2, 'to be paid in full', false, 'OPEN');
 
 -- Item data
 INSERT INTO items VALUES

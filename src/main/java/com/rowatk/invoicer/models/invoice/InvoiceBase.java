@@ -3,10 +3,7 @@ package com.rowatk.invoicer.models.invoice;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class InvoiceBase {
 
+    @Transient
     protected final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Id
@@ -31,13 +29,11 @@ public abstract class InvoiceBase {
 
     protected String note;
     protected boolean paid = false;
+
+    @Enumerated(EnumType.STRING)
     protected Status status = Status.OPEN;
 
     public InvoiceBase() {}
-
-    public SimpleDateFormat getDateFormat() {
-        return dateFormat;
-    }
 
     public Long getInvoiceNum() {
         return invoiceNum;
@@ -55,6 +51,12 @@ public abstract class InvoiceBase {
         this.issueDate = issueDate;
     }
 
+    @JsonSetter("issueDate")
+    public void setIssueDate(String issueDate) throws ParseException {
+        System.out.println("ISSUE DATE: " + issueDate);
+        this.setIssueDate(!issueDate.isBlank() ? dateFormat.parse(issueDate) : new Date());
+    }
+
     public Date getDueDate() {
         return dueDate;
     }
@@ -63,12 +65,22 @@ public abstract class InvoiceBase {
         this.dueDate = dueDate;
     }
 
+    @JsonSetter("dueDate")
+    public void setDueDate(String dueDate) throws ParseException {
+        this.setDueDate(dateFormat.parse(dueDate));
+    }
+
     public Date getDeliveryDate() {
         return deliveryDate;
     }
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    @JsonSetter("deliveryDate")
+    public void setDeliveryDate(String deliveryDate) throws ParseException {
+        this.setDeliveryDate(dateFormat.parse(deliveryDate));
     }
 
     public String getNote() {

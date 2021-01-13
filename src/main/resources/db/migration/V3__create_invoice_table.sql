@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS invoices (
-    invoice_um SERIAL,
+    invoice_num SERIAL,
     issue_date DATE,
     due_date DATE,
     delivery_date DATE,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS invoices (
     note VARCHAR(255),
     paid BOOLEAN,
     status varchar(20),
-    PRIMARY KEY(invoiceNum),
+    PRIMARY KEY(invoice_num),
     FOREIGN KEY(seller_id) REFERENCES sellers(id) ON DELETE RESTRICT,
     FOREIGN KEY(buyer_id) REFERENCES buyers(id) ON DELETE RESTRICT
 );

@@ -24,10 +24,10 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("{invoice_num}")
-    public ResponseEntity findInvoiceItems(@PathVariable Long invoice_num) {
+    @GetMapping("{invoiceNum}")
+    public ResponseEntity findInvoiceItems(@PathVariable Long invoiceNum) {
         try {
-            List<ItemDTO> items = itemService.findAllByInvoiceNum(invoice_num);
+            List<ItemDTO> items = itemService.findAllByInvoiceNum(invoiceNum);
             ItemListResponse response = new ItemListResponse();
             response.setItems(items);
             return ResponseEntity.ok().body(response);

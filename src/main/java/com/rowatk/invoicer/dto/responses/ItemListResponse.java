@@ -1,15 +1,16 @@
 package com.rowatk.invoicer.dto.responses;
 
 import com.rowatk.invoicer.dto.model.ItemDTO;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@NoArgsConstructor
 public class ItemListResponse {
 
     private List<ItemDTO> items;
+
+    public ItemListResponse() {
+    }
 
     public List<ItemDTO> getItems() {
         return items;

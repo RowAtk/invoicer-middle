@@ -18,16 +18,16 @@ public abstract class InvoiceBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long invoice_num;
+    protected Long invoiceNum;
 
-    @JsonProperty("issue_date")
-    protected Date issue_date;
+    @JsonProperty("issueDate")
+    protected Date issueDate;
 
-    @JsonProperty("due_date")
-    protected Date due_date;
+    @JsonProperty("dueDate")
+    protected Date dueDate;
 
-    @JsonProperty("delivery_date")
-    protected Date delivery_date;
+    @JsonProperty("deliveryDate")
+    protected Date deliveryDate;
 
     protected String note;
     protected boolean paid = false;
@@ -35,52 +35,40 @@ public abstract class InvoiceBase {
 
     public InvoiceBase() {}
 
-    public Long getInvoice_num() {
-        return invoice_num;
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
     }
 
-    public void setInvoice_num(Long invoice_num) {
-        this.invoice_num = invoice_num;
+    public Long getInvoiceNum() {
+        return invoiceNum;
     }
 
-    public Date getIssue_date() {
-        return issue_date;
+    public void setInvoiceNum(Long invoiceNum) {
+        this.invoiceNum = invoiceNum;
     }
 
-    public void setIssue_date(Date issue_date) {
-        this.issue_date = issue_date;
+    public Date getIssueDate() {
+        return issueDate;
     }
 
-    @JsonSetter("issue_date")
-    public void setIssue_date(String issue_date) throws ParseException {
-        System.out.println("ISSUE DATE: " + issue_date);
-        this.setIssue_date(!issue_date.isBlank() ? dateFormat.parse(issue_date) : new Date());
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
-    public Date getDue_date() {
-        return due_date;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setDue_date(Date due_date) {
-        this.due_date = due_date;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
-    @JsonSetter("due_date")
-    public void setDue_date(String due_date) throws ParseException {
-        this.setDue_date(dateFormat.parse(due_date));
+    public Date getDeliveryDate() {
+        return deliveryDate;
     }
 
-    public Date getDelivery_date() {
-        return delivery_date;
-    }
-
-    public void setDelivery_date(Date delivery_date) {
-        this.delivery_date = delivery_date;
-    }
-
-    @JsonSetter("delivery_date")
-    public void setDelivery_date(String delivery_date) throws ParseException {
-        this.setDelivery_date(dateFormat.parse(delivery_date));
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public String getNote() {

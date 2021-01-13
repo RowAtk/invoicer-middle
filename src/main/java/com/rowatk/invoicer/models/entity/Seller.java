@@ -13,7 +13,7 @@ public class Seller extends Entity{
     public Seller() {
     }
 
-    public Seller(@JsonProperty("company_name") String company_name,
+    public Seller(@JsonProperty("companyName") String company_name,
                   @JsonProperty("address") Address address,
                   @JsonProperty("phone") String phone,
                   @JsonProperty("email") String email) {

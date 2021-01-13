@@ -5,31 +5,31 @@ import java.util.Objects;
 
 public class ItemKey implements Serializable {
 
-    protected Long item_id;
-    protected Long invoice_num;
+    protected Long itemId;
+    protected Long invoiceNum;
 
     public ItemKey() {
     }
 
-    public ItemKey(Long item_id, Long invoice_num) {
-        this.item_id = item_id;
-        this.invoice_num = invoice_num;
+    public ItemKey(Long itemId, Long invoiceNum) {
+        this.itemId = itemId;
+        this.invoiceNum = invoiceNum;
     }
 
-    public Long getItem_id() {
-        return item_id;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Long item_id) {
-        this.item_id = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public Long getInvoice_num() {
-        return invoice_num;
+    public Long getInvoiceNum() {
+        return invoiceNum;
     }
 
-    public void setInvoice_num(Long invoice_num) {
-        this.invoice_num = invoice_num;
+    public void setInvoiceNum(Long invoiceNum) {
+        this.invoiceNum = invoiceNum;
     }
 
     @Override
@@ -37,11 +37,19 @@ public class ItemKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemKey itemKey = (ItemKey) o;
-        return Objects.equals(item_id, itemKey.item_id) && Objects.equals(invoice_num, itemKey.invoice_num);
+        return Objects.equals(itemId, itemKey.itemId) && Objects.equals(invoiceNum, itemKey.invoiceNum);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(item_id, invoice_num);
+        return Objects.hash(itemId, invoiceNum);
+    }
+
+    @Override
+    public String toString() {
+        return "ItemKey{" +
+                "itemId=" + itemId +
+                ", invoiceNum=" + invoiceNum +
+                '}';
     }
 }

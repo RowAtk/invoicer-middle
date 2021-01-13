@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Table(name = "invoices")
 public class Invoice extends InvoiceBase {
 
-    @JsonProperty("sellerId")
+    @JsonProperty("seller_id")
     private int sellerId;
 
-    @JsonProperty("buyerId")
+    @JsonProperty("buyer_id")
     private int buyerId;
 
     public Invoice() {}
@@ -38,18 +38,17 @@ public class Invoice extends InvoiceBase {
                 "sellerId=" + sellerId +
                 ", buyerId=" + buyerId +
                 ", dateFormat=" + dateFormat +
-                ", invoice_num='" + invoice_num + '\'' +
-                ", issue_date=" + issue_date +
-                ", due_date=" + due_date +
-                ", delivery_date=" + delivery_date +
-                ", sellerId=" + sellerId +
-                ", buyerId=" + buyerId +
+                ", invoiceNum=" + invoiceNum +
+                ", issueDate=" + issueDate +
+                ", dueDate=" + dueDate +
+                ", deliveryDate=" + deliveryDate +
                 ", note='" + note + '\'' +
                 ", paid=" + paid +
                 ", status=" + status +
                 '}';
     }
 }
+
 
 
 

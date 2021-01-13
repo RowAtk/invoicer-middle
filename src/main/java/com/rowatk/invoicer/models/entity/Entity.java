@@ -42,11 +42,11 @@ public abstract class Entity implements Comparable<Entity>{
         this.id = id;
     }
 
-    public String getCompany_name() {
+    public String getCompanyName() {
         return company_name;
     }
 
-    public void setCompany_name(String company_name) {
+    public void setCompanyName(String company_name) {
         this.company_name = company_name;
     }
 
@@ -76,7 +76,7 @@ public abstract class Entity implements Comparable<Entity>{
 
     @Override
     public int compareTo(Entity e) {
-        int nameCmp = this.company_name.compareTo(e.getCompany_name());
+        int nameCmp = this.company_name.compareTo(e.getCompanyName());
         if(nameCmp == 0) {
             return this.address.compareTo(e.getAddress());
         }

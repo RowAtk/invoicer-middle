@@ -22,7 +22,7 @@ public class InvoiceController {
     @PostMapping
     public ResponseEntity addInvoice(@RequestBody CreateInvoiceRequest request) {
         Optional<InvoiceDTO> invoice = this.invoiceService.addInvoice(request);
-        return invoice.map(invoiceDTO -> ResponseEntity.ok(new SimpleResponse("Invoice " + invoiceDTO.getInvoice_num() + " was added")))
+        return invoice.map(invoiceDTO -> ResponseEntity.ok(new SimpleResponse("Invoice " + invoiceDTO.getInvoiceNum() + " was added")))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice")));
     }
 

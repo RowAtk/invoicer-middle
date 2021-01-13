@@ -29,7 +29,7 @@ public class ItemService {
         try {
             result = itemMapper.itemToDTO(itemRepository.save(itemMapper.dtoToItem(dto)));
         } catch (Exception e) {
-            logger.error("Unable to create item " + dto.getItem_id() + " for invoice " + dto.getInvoice_num());
+            logger.error("Unable to create item " + dto.getItemId() + " for invoice " + dto.getInvoiceNum());
         }
         return Optional.ofNullable(result);
     }

@@ -1,15 +1,27 @@
 package com.rowatk.invoicer.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rowatk.invoicer.models.invoice.InvoiceBase;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 public class InvoiceDTO extends InvoiceBase {
 
-    private int sellerId;
-    private int buyerId;
+    private Long sellerId;
+    private Long buyerId;
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
 
     @Override
     public String toString() {
@@ -17,10 +29,10 @@ public class InvoiceDTO extends InvoiceBase {
                 "sellerId=" + sellerId +
                 ", buyerId=" + buyerId +
                 ", dateFormat=" + dateFormat +
-                ", invoice_num=" + invoice_num +
-                ", issue_date=" + issue_date +
-                ", due_date=" + due_date +
-                ", delivery_date=" + delivery_date +
+                ", invoice_num=" + invoiceNum +
+                ", issue_date=" + issueDate +
+                ", due_date=" + dueDate +
+                ", delivery_date=" + deliveryDate +
                 ", note='" + note + '\'' +
                 ", paid=" + paid +
                 ", status=" + status +

@@ -19,7 +19,7 @@ public class FakeInvoiceRepository implements InvoiceRepository {
     private Long genId() {
         int size = this.DB.size();
         if(size > 0) {
-            return this.DB.get(size-1).getInvoice_num() + 1;
+            return this.DB.get(size-1).getInvoiceNum() + 1;
         }
         return 1L;
     }
@@ -30,7 +30,7 @@ public class FakeInvoiceRepository implements InvoiceRepository {
         Long id = null;
         try {
             id = this.genId();
-            s.setInvoice_num(id);
+            s.setInvoiceNum(id);
             DB.add(s);
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -40,16 +40,16 @@ public class FakeInvoiceRepository implements InvoiceRepository {
 
     @Override
     @NonNull
-    public Optional<Invoice> findById(@NonNull Long inv_num) {
+    public Optional<Invoice> findById(@NonNull Long invNum) {
         return this.DB.stream()
-                .filter(invoice -> invoice.getInvoice_num().equals(inv_num))
+                .filter(invoice -> invoice.getInvoiceNum().equals(invNum))
                 .findFirst();
     }
 
     @Override
-    public boolean existsById(@NonNull Long inv_num) {
+    public boolean existsById(@NonNull Long invNum) {
         return this.DB.stream()
-                .anyMatch(invoice -> invoice.getInvoice_num().equals(inv_num));
+                .anyMatch(invoice -> invoice.getInvoiceNum().equals(invNum));
     }
 
     @Override
@@ -64,8 +64,8 @@ public class FakeInvoiceRepository implements InvoiceRepository {
     }
 
     @Override
-    public void deleteById(@NonNull Long inv_num) {
-        this.DB.removeIf(inv -> inv.getInvoice_num().equals(inv_num));
+    public void deleteById(@NonNull Long invNum) {
+        this.DB.removeIf(inv -> inv.getInvoiceNum().equals(invNum));
     }
 
     @Override

@@ -61,7 +61,7 @@ public class InvoiceService {
 
     public boolean updateInvoice(Long id, Invoice invoice) {
         if(this.invoiceRepository.existsById(id)) {
-            invoice.setInvoice_num(id);
+            invoice.setInvoiceNum(id);
             this.invoiceRepository.save(invoice);
             return true;
         }

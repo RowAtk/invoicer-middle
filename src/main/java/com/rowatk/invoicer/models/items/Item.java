@@ -1,14 +1,10 @@
 package com.rowatk.invoicer.models.items;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "items")
@@ -16,10 +12,10 @@ import java.util.Objects;
 public class Item {
 
     @Id
-    private Long item_id;
+    private Long itemId;
 
     @Id
-    private Long invoice_num;
+    private Long invoiceNum;
 
     @NotBlank
     private String description;
@@ -28,30 +24,30 @@ public class Item {
     private double quantity;
 
     @NotNull
-    private double unit_price;
+    private double unitPrice;
 
     public Item() {}
 
     public Item(@JsonProperty("description") String description, @JsonProperty("quantity") double quantity, @JsonProperty("unit_price") double unit_price) {
         this.description = description;
         this.quantity = quantity;
-        this.unit_price = unit_price;
+        this.unitPrice = unit_price;
     }
 
-    public Long getItem_id() {
-        return item_id;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Long item_id) {
-        this.item_id = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public Long getInvoice_num() {
-        return invoice_num;
+    public Long getInvoiceNum() {
+        return invoiceNum;
     }
 
-    public void setInvoice_num(Long invoice_num) {
-        this.invoice_num = invoice_num;
+    public void setInvoiceNum(Long invoiceNum) {
+        this.invoiceNum = invoiceNum;
     }
 
     public String getDescription() {
@@ -70,25 +66,26 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public double getUnit_price() {
-        return unit_price;
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnit_price(double unit_price) {
-        this.unit_price = unit_price;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public double calculateAmount() {
-        return this.unit_price * this.quantity;
+        return this.unitPrice * this.quantity;
     }
 
     @Override
     public String toString() {
         return "Item{" +
-                "item_id=" + item_id +
+                "itemId=" + itemId +
+                ", invoiceNum=" + invoiceNum +
                 ", description='" + description + '\'' +
                 ", quantity=" + quantity +
-                ", unit_price=" + unit_price +
+                ", unitPrice=" + unitPrice +
                 '}';
     }
 }

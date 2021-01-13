@@ -29,7 +29,7 @@ public abstract class EntityController<T extends Entity> {
         T result = this.entityService.add(entity);
         if(result != null) {
             logger.info("Successfully saved " + type());
-            return ResponseEntity.ok(new SimpleResponse(type() + " " + entity.getCompany_name() + " added successfully"));
+            return ResponseEntity.ok(new SimpleResponse(type() + " " + entity.getCompanyName() + " added successfully"));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new SimpleResponse("Unable to add " + type())
@@ -55,7 +55,7 @@ public abstract class EntityController<T extends Entity> {
         Optional<T> entity = this.entityService.findById(id);
         if(entity.isPresent()) {
             if(this.entityService.removeById(id)) {
-                return ResponseEntity.ok(new SimpleResponse(type() + " \'" + entity.get().getCompany_name()+ "\' removed successfully"));
+                return ResponseEntity.ok(new SimpleResponse(type() + " '" + entity.get().getCompanyName()+ "' removed successfully"));
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No " + type() + " with ID: " + id));
@@ -64,7 +64,7 @@ public abstract class EntityController<T extends Entity> {
     @PutMapping("{id}")
     public ResponseEntity updateEntity(@PathVariable("id") Long id, @RequestBody T entity) {
         if(this.entityService.updateById(id, entity)) {
-            return ResponseEntity.ok(new SimpleResponse(type() + " with ID \'" + id + "\' updated successfully"));
+            return ResponseEntity.ok(new SimpleResponse(type() + " with ID '" + id + "' updated successfully"));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No " + type() + " with ID: " + id));
     }

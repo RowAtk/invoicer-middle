@@ -27,14 +27,14 @@ public class InvoiceEntityDTO extends InvoiceBase {
 
     @Override
     public String toString() {
-        return "InvoiceResponse{" +
+        return "InvoiceEntityDTO{" +
                 "seller=" + seller +
                 ", buyer=" + buyer +
                 ", dateFormat=" + dateFormat +
-                ", invoice_num='" + invoice_num + '\'' +
-                ", issue_date=" + issue_date +
-                ", due_date=" + due_date +
-                ", delivery_date=" + delivery_date +
+                ", invoiceNum=" + invoiceNum +
+                ", issueDate=" + issueDate +
+                ", dueDate=" + dueDate +
+                ", deliveryDate=" + deliveryDate +
                 ", note='" + note + '\'' +
                 ", paid=" + paid +
                 ", status=" + status +

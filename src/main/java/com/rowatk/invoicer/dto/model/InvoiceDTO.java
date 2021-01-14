@@ -4,8 +4,8 @@ import com.rowatk.invoicer.models.invoice.InvoiceBase;
 
 public class InvoiceDTO extends InvoiceBase {
 
-    private Long sellerId;
-    private Long buyerId;
+    protected Long sellerId = 1L;
+    protected Long buyerId;
 
     public Long getSellerId() {
         return sellerId;

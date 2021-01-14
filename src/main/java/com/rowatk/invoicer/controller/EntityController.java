@@ -1,5 +1,7 @@
 package com.rowatk.invoicer.controller;
 
+import com.rowatk.invoicer.dto.model.EntityDTO;
+import com.rowatk.invoicer.dto.requests.CreateEntityRequest;
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.services.EntityService;
@@ -12,24 +14,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-public abstract class EntityController<T extends Entity> {
+public abstract class EntityController<T extends Entity, DTO extends EntityDTO> {
 
     private static final Logger logger = LoggerFactory.getLogger(EntityController.class);
 
     @Autowired
-    private EntityService<T> entityService;
+    private EntityService<T, DTO> entityService;
     
     private String type() {
         return this.entityService.getType();
     }
 
     @PostMapping
-    public ResponseEntity add(@RequestBody T entity) {
+    public ResponseEntity add(@RequestBody DTO dto) {
         logger.info("Attempting to save {}", type());
-        T result = this.entityService.add(entity);
-        if(result != null) {
+        Optional<DTO> result = this.entityService.add(dto);
+        if(result.isPresent()) {
             logger.info("Successfully saved " + type());
-            return ResponseEntity.ok(new SimpleResponse(type() + " " + entity.getCompanyName() + " added successfully"));
+            return ResponseEntity.ok(new SimpleResponse(type() + " " + result.get().getCompanyName() + " added successfully"));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new SimpleResponse("Unable to add " + type())
@@ -43,7 +45,7 @@ public abstract class EntityController<T extends Entity> {
 
     @GetMapping("{id}")
     public ResponseEntity getEntityById(@PathVariable("id") Long id) {
-        Optional<T> entity = this.entityService.findById(id);
+        Optional<DTO> entity = this.entityService.findById(id);
         if(entity.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No " + type() + " with ID: " + id));
         }
@@ -52,7 +54,7 @@ public abstract class EntityController<T extends Entity> {
 
     @DeleteMapping("{id}")
     public ResponseEntity removeEntity(@PathVariable("id") Long id) {
-        Optional<T> entity = this.entityService.findById(id);
+        Optional<DTO> entity = this.entityService.findById(id);
         if(entity.isPresent()) {
             if(this.entityService.removeById(id)) {
                 return ResponseEntity.ok(new SimpleResponse(type() + " '" + entity.get().getCompanyName()+ "' removed successfully"));
@@ -62,7 +64,7 @@ public abstract class EntityController<T extends Entity> {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity updateEntity(@PathVariable("id") Long id, @RequestBody T entity) {
+    public ResponseEntity updateEntity(@PathVariable("id") Long id, @RequestBody DTO entity) {
         if(this.entityService.updateById(id, entity)) {
             return ResponseEntity.ok(new SimpleResponse(type() + " with ID '" + id + "' updated successfully"));
         }

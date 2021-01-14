@@ -4,7 +4,6 @@ import com.rowatk.invoicer.dto.model.BuyerDTO;
 import com.rowatk.invoicer.models.entity.Buyer;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BuyerMapper extends EntityMapper<Buyer, BuyerDTO> {
-
 }

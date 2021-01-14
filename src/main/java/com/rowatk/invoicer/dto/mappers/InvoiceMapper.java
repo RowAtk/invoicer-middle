@@ -18,7 +18,6 @@ public interface InvoiceMapper {
 
     InvoiceEntityDTO invoiceToEntityDTO(Invoice invoice);
 
-    @Mapping( target = ".", source = "invoice")
     InvoiceDTO requestToDTO(CreateInvoiceRequest request);
 
 }

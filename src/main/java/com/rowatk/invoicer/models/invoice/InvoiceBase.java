@@ -53,7 +53,6 @@ public abstract class InvoiceBase {
 
     @JsonSetter("issueDate")
     public void setIssueDate(String issueDate) throws ParseException {
-        System.out.println("ISSUE DATE: " + issueDate);
         this.setIssueDate(!issueDate.isBlank() ? dateFormat.parse(issueDate) : new Date());
     }
 

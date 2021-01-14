@@ -6,11 +6,13 @@ import com.rowatk.invoicer.models.entity.Entity;
 
 public interface EntityMapper<MODEL extends Entity, DTO extends EntityDTO> {
 
-    MODEL dtoToBuyer(DTO dto);
+    MODEL dtoToEntity(DTO dto);
 
-    DTO buyerToDTO(MODEL entity);
+    DTO entityToDTO(MODEL entity);
 
     DTO requestToDTO(CreateEntityRequest request);
 
-    Iterable<DTO> userListToDTO(Iterable<MODEL> entityList);
+    Iterable<DTO> entitiesToDTOs(Iterable<MODEL> entityList);
+
+    Iterable<MODEL> dtosToEntities(Iterable<DTO> dtoList);
 }

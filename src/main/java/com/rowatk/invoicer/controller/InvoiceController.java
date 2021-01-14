@@ -32,9 +32,16 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity addInvoice(@RequestBody CreateInvoiceRequest request) {
-        Optional<InvoiceDTO> invoice = this.invoiceService.addInvoice(request);
-        return invoice.map(invoiceDTO -> ResponseEntity.ok(new SimpleResponse("Invoice " + invoiceDTO.getInvoiceNum() + " was added")))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice")));
+        try {
+            InvoiceDTO invoice = this.invoiceService.addInvoice(request);
+            System.out.println(invoice);
+            return ResponseEntity.ok().body(invoice);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice: " + e.getMessage()));
+        }
+
+//        return invoice.map(invoiceDTO -> ResponseEntity.ok(new SimpleResponse("Invoice " + invoiceDTO.getInvoiceNum() + " was added")))
+//                .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("Unable to add invoice")));
     }
 
     @GetMapping("{invoiceId}")
@@ -59,7 +66,7 @@ public class InvoiceController {
     }
 
     @PutMapping("{invoiceId}")
-    public ResponseEntity updateInvoice(@PathVariable("invoiceId") Long id, @RequestBody Invoice invoice) {
+    public ResponseEntity updateInvoice(@PathVariable("invoiceId") Long id, @RequestBody InvoiceDTO invoice) {
         if(this.invoiceService.updateInvoice(id, invoice))
             return ResponseEntity.ok(new SimpleResponse("Invoice " + id + " updated successfully"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));

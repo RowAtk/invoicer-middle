@@ -1,5 +1,8 @@
 package com.rowatk.invoicer.services;
 
+import com.rowatk.invoicer.dto.mappers.EntityMapper;
+import com.rowatk.invoicer.dto.model.EntityDTO;
+import com.rowatk.invoicer.dto.requests.CreateEntityRequest;
 import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.respositories.EntityRepository;
 import org.slf4j.Logger;
@@ -8,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-public abstract class EntityService<T extends Entity> {
+public abstract class EntityService<T extends Entity, DTO extends EntityDTO> {
 
     private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
 
     @Autowired
+    protected EntityMapper<T, DTO> mapper;
+
+    @Autowired
     protected EntityRepository<T, Long> repository;
 
-    private String type;
+    private final String type;
 
     public EntityService(String type) {
         this.type = type;
@@ -26,21 +32,24 @@ public abstract class EntityService<T extends Entity> {
     }
 
     // Entity
-    public T add(T entity) {
-        T result = null;
-        try { result = this.repository.save(entity); }
+    public Optional<DTO> add(DTO entity) {
+        DTO result = null;
+        try {
+            result = mapper.entityToDTO(this.repository.save(mapper.dtoToEntity(entity)));
+        }
         catch(Exception e) {
             logger.error("Error saving " + this.type + ": " + e.getMessage());
         }
-        return result;
+        return Optional.ofNullable(result);
     }
 
-    public Optional<T> findById(Long id) {
-        return this.repository.findById(id);
+    public Optional<DTO> findById(Long id) {
+        Optional<T> result = this.repository.findById(id);
+        return result.map(entity -> mapper.entityToDTO(entity));
     }
 
-    public Iterable<T> findAll() {
-        return this.repository.findAll();
+    public Iterable<DTO> findAll() {
+        return mapper.entitiesToDTOs(this.repository.findAll());
     }
 
     public boolean removeById(Long id) {
@@ -60,8 +69,9 @@ public abstract class EntityService<T extends Entity> {
 //        }
     }
 
-    public boolean updateById(Long id, T entity) {
+    public boolean updateById(Long id, DTO dto) {
         if(this.repository.existsById(id)) {
+            T entity = mapper.dtoToEntity(dto);
             entity.setId(id);
             this.repository.save(entity);
             return true;

@@ -1,11 +1,12 @@
 package com.rowatk.invoicer.dto.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.rowatk.invoicer.dto.DTO;
 
 import java.math.BigDecimal;
 
 
-public class ItemDTO {
+public class ItemDTO implements DTO {
 
     private Long itemId;
 
@@ -60,6 +61,11 @@ public class ItemDTO {
     @JsonGetter
     public BigDecimal getTotal() {
         return BigDecimal.valueOf(this.quantity * this.unitPrice);
+    }
+
+    @Override
+    public String getKey() {
+        return "invoice";
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.rowatk.invoicer.dto.model;
 
+import com.rowatk.invoicer.dto.DTO;
 import com.rowatk.invoicer.models.invoice.InvoiceBase;
 
-public class InvoiceDTO extends InvoiceBase {
+public class InvoiceDTO extends InvoiceBase implements DTO {
 
     protected Long sellerId = 1L;
     protected Long buyerId;
@@ -22,6 +23,8 @@ public class InvoiceDTO extends InvoiceBase {
     public void setBuyerId(Long buyerId) {
         this.buyerId = buyerId;
     }
+
+
 
     @Override
     public String toString() {

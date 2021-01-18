@@ -1,8 +1,9 @@
 package com.rowatk.invoicer.dto.model;
 
+import com.rowatk.invoicer.dto.DTO;
 import com.rowatk.invoicer.models.common.Address;
 
-public abstract class EntityDTO {
+public abstract class EntityDTO implements DTO {
     protected String companyName;
     protected Address address;
     protected String phone;
@@ -38,6 +39,11 @@ public abstract class EntityDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String getKey() {
+        return "Entity";
     }
 
     public String toString(String name) {

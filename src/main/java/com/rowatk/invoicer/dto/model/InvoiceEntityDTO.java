@@ -1,10 +1,11 @@
 package com.rowatk.invoicer.dto.model;
 
+import com.rowatk.invoicer.dto.DTO;
 import com.rowatk.invoicer.models.entity.Buyer;
 import com.rowatk.invoicer.models.entity.Seller;
 import com.rowatk.invoicer.models.invoice.InvoiceBase;
 
-public class InvoiceEntityDTO extends InvoiceBase {
+public class InvoiceEntityDTO extends InvoiceBase implements DTO {
 
     private Seller seller;
     private Buyer buyer;
@@ -23,6 +24,11 @@ public class InvoiceEntityDTO extends InvoiceBase {
 
     public void setBuyer(Buyer buyer) {
         this.buyer = buyer;
+    }
+
+    @Override
+    public String getKey() {
+        return "invoice";
     }
 
     @Override

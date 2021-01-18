@@ -3,20 +3,23 @@ package com.rowatk.invoicer.services;
 import com.rowatk.invoicer.dto.mappers.EntityMapper;
 import com.rowatk.invoicer.dto.model.EntityDTO;
 import com.rowatk.invoicer.dto.requests.CreateEntityRequest;
+import com.rowatk.invoicer.exception.NoRecordException;
 import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.respositories.EntityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.w3c.dom.stylesheets.LinkStyle;
 
+import java.util.List;
 import java.util.Optional;
 
-public abstract class EntityService<T extends Entity, DTO extends EntityDTO> {
+public abstract class EntityService<T extends Entity, D extends EntityDTO> {
 
     private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
 
     @Autowired
-    protected EntityMapper<T, DTO> mapper;
+    protected EntityMapper<T, D> mapper;
 
     @Autowired
     protected EntityRepository<T, Long> repository;
@@ -32,8 +35,8 @@ public abstract class EntityService<T extends Entity, DTO extends EntityDTO> {
     }
 
     // Entity
-    public Optional<DTO> add(DTO entity) {
-        DTO result = null;
+    public Optional<D> add(D entity) {
+        D result = null;
         try {
             result = mapper.entityToDTO(this.repository.save(mapper.dtoToEntity(entity)));
         }
@@ -43,33 +46,33 @@ public abstract class EntityService<T extends Entity, DTO extends EntityDTO> {
         return Optional.ofNullable(result);
     }
 
-    public Optional<DTO> findById(Long id) {
+    public D findById(Long id) {
         Optional<T> result = this.repository.findById(id);
-        return result.map(entity -> mapper.entityToDTO(entity));
+        return mapper.entityToDTO(result.orElseThrow((() -> new NoRecordException(this.type, id))));
     }
 
-    public Iterable<DTO> findAll() {
+    public List<D> findAll() {
         return mapper.entitiesToDTOs(this.repository.findAll());
     }
 
-    public boolean removeById(Long id) {
+    public void removeById(Long id) {
+        logger.info("Attempting to remove " + type + " with id: " + id);
         if(this.repository.existsById(id)) {
-            this.repository.deleteById(id);
-            return true;
+
+            try {
+                this.repository.deleteById(id);
+                logger.info(type + " " + id + " removed");
+            } catch(Exception ex) {
+                logger.error("failed to removed " + type + " with id " + id + ": " + ex.getMessage());
+            }
+
+        } else {
+            throw new NoRecordException(this.type, id);
         }
-        return false;
-//        try {
-//            logger.info("Attempting to remove entity");
-//            this.repository.deleteById(id);
-//            logger.info(type + " removed");
-//            return true;
-//        } catch (Exception e) {
-//            logger.error("id non-existent");
-//            return false;
-//        }
+
     }
 
-    public boolean updateById(Long id, DTO dto) {
+    public boolean updateById(Long id, D dto) {
         if(this.repository.existsById(id)) {
             T entity = mapper.dtoToEntity(dto);
             entity.setId(id);

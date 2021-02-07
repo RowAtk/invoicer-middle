@@ -24,7 +24,10 @@ public class InvoiceDTO extends InvoiceBase implements DTO {
         this.buyerId = buyerId;
     }
 
-
+    @Override
+    public String getKey() {
+        return "invoice";
+    }
 
     @Override
     public String toString() {

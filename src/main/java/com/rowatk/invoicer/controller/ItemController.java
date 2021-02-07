@@ -1,5 +1,8 @@
 package com.rowatk.invoicer.controller;
 
+import com.rowatk.invoicer.dto.responses.ApiResponse;
+import com.rowatk.invoicer.dto.responses.ApiResponseFactory;
+import com.rowatk.invoicer.dto.responses.GeneralResponse;
 import com.rowatk.invoicer.services.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +22,8 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping
-    public ResponseEntity findAllItems() {
-        return ResponseEntity.ok().body(itemService.findAll());
+    public ResponseEntity<ApiResponse> findAllItems() {
+        return ApiResponseFactory.ok(new GeneralResponse("items", itemService.findAll()));
     }
 
 }

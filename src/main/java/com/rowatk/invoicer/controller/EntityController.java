@@ -4,7 +4,7 @@ import com.rowatk.invoicer.dto.DTO;
 import com.rowatk.invoicer.dto.model.EntityDTO;
 import com.rowatk.invoicer.dto.responses.ApiResponse;
 import com.rowatk.invoicer.dto.responses.ApiResponseFactory;
-import com.rowatk.invoicer.dto.responses.ListResponse;
+import com.rowatk.invoicer.dto.responses.GeneralResponse;
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.entity.Entity;
 import com.rowatk.invoicer.services.EntityService;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +45,7 @@ public abstract class EntityController<T extends Entity, D extends EntityDTO> {
     @GetMapping
     public ResponseEntity<ApiResponse> getEntities() {
         List<D> result = this.entityService.findAll();
-        System.out.println(result);
-        return ApiResponseFactory.ok(new ListResponse((List<DTO>) result, type() + "s"));
-//        return ResponseEntity.ok(this.entityService.findAll());
+        return ApiResponseFactory.ok(new GeneralResponse(type() + "s", result));
     }
 
     @GetMapping("{id}")

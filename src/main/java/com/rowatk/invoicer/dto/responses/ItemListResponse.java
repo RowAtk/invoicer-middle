@@ -13,6 +13,10 @@ public class ItemListResponse implements DTO {
     public ItemListResponse() {
     }
 
+    public ItemListResponse(List<ItemDTO> items) {
+        this.items = items;
+    }
+
     public List<ItemDTO> getItems() {
         return items;
     }

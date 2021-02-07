@@ -2,6 +2,9 @@ package com.rowatk.invoicer.controller;
 
 import com.rowatk.invoicer.dto.model.InvoiceDTO;
 import com.rowatk.invoicer.dto.model.ItemDTO;
+import com.rowatk.invoicer.dto.responses.ApiResponse;
+import com.rowatk.invoicer.dto.responses.ApiResponseFactory;
+import com.rowatk.invoicer.dto.responses.GeneralResponse;
 import com.rowatk.invoicer.dto.responses.ItemListResponse;
 import com.rowatk.invoicer.models.common.SimpleResponse;
 import com.rowatk.invoicer.models.invoice.Invoice;
@@ -53,8 +56,8 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ResponseEntity getInvoices() {
-        return ResponseEntity.ok(this.invoiceService.getInvoices());
+    public ResponseEntity<ApiResponse> getInvoices() {
+        return ApiResponseFactory.ok(new GeneralResponse("invoices", this.invoiceService.getInvoices()));
     }
 
     @DeleteMapping("{invoiceId}")
@@ -72,17 +75,10 @@ public class InvoiceController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
     }
 
-    @GetMapping("{invoiceNum}/items")
-    public ResponseEntity findInvoiceItems(@PathVariable Long invoiceNum) {
-        try {
-            List<ItemDTO> items = itemService.findAllByInvoiceNum(invoiceNum);
-            ItemListResponse response = new ItemListResponse();
-            response.setItems(items);
-            return ResponseEntity.ok().body(response);
-        } catch(Exception e) {
-            logger.error("unable to fetch invoice items: " + e.getMessage());
-            return ResponseEntity.badRequest().body(new SimpleResponse("unable to fetch invoice items: " + e.getMessage()));
-        }
+    @GetMapping("{invoiceId}/items")
+    public ResponseEntity<ApiResponse> findInvoiceItems(@PathVariable("invoiceId") Long id) {
+        List<ItemDTO> items = itemService.findAllByInvoiceNum(id);
+        return ApiResponseFactory.ok(new ItemListResponse(items));
     }
 
 }

@@ -1,12 +1,23 @@
 package com.rowatk.invoicer.dto.responses;
 
+import antlr.StringUtils;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rowatk.invoicer.dto.DTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApiResponse.class);
 
     private String status;
     private int code;
@@ -71,15 +82,27 @@ public class ApiResponse {
     }
 
     @JsonGetter
-    public Object getResult() {
+    public Object getResult() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Object returnValue = result;
         if(result != null) {
-            if(!result.getKey().isBlank()) {
+            if( result.getKey() != null) {
                 Map<String, DTO> hashMap = new LinkedHashMap<>();
                 hashMap.put(result.getKey(), result);
-                return hashMap;
+                returnValue = hashMap;
             }
         }
-        return result;
+
+//        try {
+//            returnValue = mapper.writeValueAsString(result);
+//            mapper.writeValue(new File("target/output.json"), returnValue);
+//            System.out.println(returnValue);
+//        } catch (IOException ex) {
+//            logger.error("Error converting object to JSON: " + ex.getMessage());
+//        }
+//
+//        System.out.println(returnValue);
+        return returnValue;
     }
 
     public void setResult(DTO result) {

@@ -1,20 +1,15 @@
 package com.rowatk.invoicer.dto.responses;
 
-import antlr.StringUtils;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rowatk.invoicer.dto.DTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiResponse.class);
@@ -93,15 +88,6 @@ public class ApiResponse {
             }
         }
 
-//        try {
-//            returnValue = mapper.writeValueAsString(result);
-//            mapper.writeValue(new File("target/output.json"), returnValue);
-//            System.out.println(returnValue);
-//        } catch (IOException ex) {
-//            logger.error("Error converting object to JSON: " + ex.getMessage());
-//        }
-//
-//        System.out.println(returnValue);
         return returnValue;
     }
 

@@ -21,6 +21,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         System.out.println(request);
         String message = String.format("No %s found with the id: %d", ex.getType(), ex.getId());
         logger.error(message);
-        return ApiResponseFactory.badRequest(null, message);
+        return ApiResponseFactory.notFound(message);
     }
 }

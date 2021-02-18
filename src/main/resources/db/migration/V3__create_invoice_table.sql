@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS invoices (
     paid BOOLEAN,
     status varchar(20),
     PRIMARY KEY(invoice_num),
-    FOREIGN KEY(seller_id) REFERENCES sellers(id) ON DELETE RESTRICT,
+    FOREIGN KEY(seller_id) REFERENCES users(id) ON DELETE RESTRICT,
     FOREIGN KEY(buyer_id) REFERENCES buyers(id) ON DELETE RESTRICT
 );
 

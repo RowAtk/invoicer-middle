@@ -27,5 +27,6 @@ CREATE TABLE IF NOT EXISTS buyers (
     phone VARCHAR(20),
     email VARCHAR(255),
     PRIMARY KEY(id),
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE;
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 

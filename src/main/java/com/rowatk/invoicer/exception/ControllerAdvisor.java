@@ -18,8 +18,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoRecordException.class)
     public ResponseEntity<ApiResponse> handleNoRecordException(NoRecordException ex, WebRequest request) {
+
         System.out.println(request);
-        String message = String.format("No %s found with the id: %d", ex.getType(), ex.getId());
+        String message = String.format("No %s found with the %s: %s", ex.getType(), ex.getIdType(), ex.getIdValue());
         logger.error(message);
         return ApiResponseFactory.notFound(message);
     }

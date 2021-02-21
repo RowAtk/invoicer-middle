@@ -3,10 +3,12 @@ package com.rowatk.invoicer.respositories;
 import com.rowatk.invoicer.models.items.Item;
 import com.rowatk.invoicer.models.items.ItemKey;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 import java.util.Optional;
 
+@NoRepositoryBean
 public interface ItemRepository extends CrudRepository<Item, ItemKey> {
 
     List<Item> findByInvoiceNum(Long inv_num);

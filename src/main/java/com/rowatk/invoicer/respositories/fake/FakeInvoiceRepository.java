@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository("fakeInvoice")
 @ConditionalOnProperty(value = "db.mode", havingValue = "fake")
@@ -56,6 +57,11 @@ public class FakeInvoiceRepository implements InvoiceRepository {
     @NonNull
     public Iterable<Invoice> findAll() {
         return this.DB;
+    }
+
+    @Override
+    public List<Invoice> findBySellerId(Long sellerId) {
+        return this.DB.stream().filter(invoice -> invoice.getSellerId() == sellerId).collect(Collectors.toList());
     }
 
     @Override

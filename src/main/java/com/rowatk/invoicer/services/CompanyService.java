@@ -1,32 +1,30 @@
 package com.rowatk.invoicer.services;
 
-import com.rowatk.invoicer.dto.mappers.EntityMapper;
-import com.rowatk.invoicer.dto.model.EntityDTO;
-import com.rowatk.invoicer.dto.requests.CreateEntityRequest;
+import com.rowatk.invoicer.dto.mappers.CompanyMapper;
+import com.rowatk.invoicer.dto.model.CompanyDTO;
 import com.rowatk.invoicer.exception.NoRecordException;
-import com.rowatk.invoicer.models.entity.Entity;
-import com.rowatk.invoicer.respositories.EntityRepository;
+import com.rowatk.invoicer.models.company.Company;
+import com.rowatk.invoicer.respositories.CompanyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class EntityService<T extends Entity, D extends EntityDTO> {
+public abstract class CompanyService<T extends Company, D extends CompanyDTO> {
 
-    private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
-
-    @Autowired
-    protected EntityMapper<T, D> mapper;
+    private static final Logger logger = LoggerFactory.getLogger(CompanyService.class);
 
     @Autowired
-    protected EntityRepository<T, Long> repository;
+    protected CompanyMapper<T, D> mapper;
+
+    @Autowired
+    protected CompanyRepository<T, Long> repository;
 
     private final String type;
 
-    public EntityService(String type) {
+    public CompanyService(String type) {
         this.type = type;
     }
 
@@ -48,7 +46,7 @@ public abstract class EntityService<T extends Entity, D extends EntityDTO> {
 
     public D findById(Long id) {
         Optional<T> result = this.repository.findById(id);
-        return mapper.entityToDTO(result.orElseThrow((() -> new NoRecordException(this.type, id))));
+        return mapper.entityToDTO(result.orElseThrow((() -> new NoRecordException(this.type, "id", String.valueOf(id)))));
     }
 
     public List<D> findAll() {
@@ -67,7 +65,7 @@ public abstract class EntityService<T extends Entity, D extends EntityDTO> {
             }
 
         } else {
-            throw new NoRecordException(this.type, id);
+            throw new NoRecordException(this.type, "id", String.valueOf(id));
         }
 
     }

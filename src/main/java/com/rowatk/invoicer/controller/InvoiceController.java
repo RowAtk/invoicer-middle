@@ -51,7 +51,7 @@ public class InvoiceController {
     public ResponseEntity getInvoiceById(@PathVariable("invoiceId") Long id) {
         Optional<InvoiceDTO> invoice = this.invoiceService.getInvoiceById(id);
         if(invoice.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SimpleResponse("No invoice with number: " + id));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new SimpleResponse("No invoice with number: " + id));
         return ResponseEntity.ok(invoice.get());
     }
 

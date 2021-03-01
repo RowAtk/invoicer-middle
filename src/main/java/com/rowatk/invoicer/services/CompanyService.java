@@ -3,6 +3,7 @@ package com.rowatk.invoicer.services;
 import com.rowatk.invoicer.dto.mappers.CompanyMapper;
 import com.rowatk.invoicer.dto.model.CompanyDTO;
 import com.rowatk.invoicer.exception.NoRecordException;
+import com.rowatk.invoicer.exception.RecordCreationException;
 import com.rowatk.invoicer.models.company.Company;
 import com.rowatk.invoicer.respositories.CompanyRepository;
 import org.slf4j.Logger;
@@ -33,15 +34,16 @@ public abstract class CompanyService<T extends Company, D extends CompanyDTO> {
     }
 
     // Entity
-    public Optional<D> add(D entity) {
+    public D add(D entity) {
         D result = null;
         try {
             result = mapper.entityToDTO(this.repository.save(mapper.dtoToEntity(entity)));
         }
         catch(Exception e) {
             logger.error("Error saving " + this.type + ": " + e.getMessage());
+            throw new RecordCreationException("Error registering user", e);
         }
-        return Optional.ofNullable(result);
+        return result;
     }
 
     public D findById(Long id) {

@@ -1,6 +1,6 @@
 package com.rowatk.invoicer.exception;
 
-public class NoRecordException extends RuntimeException {
+public class NoRecordException extends InvoicerException {
 
     private String type;
     private String idType;

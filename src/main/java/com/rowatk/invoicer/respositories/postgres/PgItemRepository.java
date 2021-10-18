@@ -1,11 +1,10 @@
 package com.rowatk.invoicer.respositories.postgres;
 
-import com.rowatk.invoicer.respositories.EntityRepository;
-import com.rowatk.invoicer.models.entity.Seller;
+import com.rowatk.invoicer.respositories.ItemRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
-@Repository("PgSeller")
+@Repository("pgItem")
 @ConditionalOnProperty(value = "db.mode", havingValue = "pg")
-public interface PgSellerRepository extends EntityRepository<Seller, Long> {
+public interface PgItemRepository extends ItemRepository {
 }

@@ -65,7 +65,7 @@ public class ItemDTO implements DTO {
 
     @Override
     public String getKey() {
-        return "invoice";
+        return "item";
     }
 
     @Override

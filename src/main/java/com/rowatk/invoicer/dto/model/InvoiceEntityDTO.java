@@ -1,28 +1,26 @@
 package com.rowatk.invoicer.dto.model;
 
 import com.rowatk.invoicer.dto.DTO;
-import com.rowatk.invoicer.models.entity.Buyer;
-import com.rowatk.invoicer.models.entity.Seller;
 import com.rowatk.invoicer.models.invoice.InvoiceBase;
 
 public class InvoiceEntityDTO extends InvoiceBase implements DTO {
 
-    private Seller seller;
-    private Buyer buyer;
+    private UserDTO user;
+    private BuyerDTO buyer;
 
-    public Seller getSeller() {
-        return seller;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
-    public Buyer getBuyer() {
+    public BuyerDTO getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(Buyer buyer) {
+    public void setBuyer(BuyerDTO buyer) {
         this.buyer = buyer;
     }
 
@@ -34,7 +32,7 @@ public class InvoiceEntityDTO extends InvoiceBase implements DTO {
     @Override
     public String toString() {
         return "InvoiceEntityDTO{" +
-                "seller=" + seller +
+                "user=" + user +
                 ", buyer=" + buyer +
                 ", dateFormat=" + dateFormat +
                 ", invoiceNum=" + invoiceNum +

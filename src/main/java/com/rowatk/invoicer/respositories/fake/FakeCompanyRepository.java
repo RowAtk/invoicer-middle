@@ -1,14 +1,14 @@
 package com.rowatk.invoicer.respositories.fake;
 
-import com.rowatk.invoicer.respositories.EntityRepository;
-import com.rowatk.invoicer.models.entity.Entity;
+import com.rowatk.invoicer.respositories.CompanyRepository;
+import com.rowatk.invoicer.models.company.Company;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class FakeEntityRepository<T extends Entity> implements EntityRepository<T, Long>{
+public abstract class FakeCompanyRepository<T extends Company> implements CompanyRepository<T, Long> {
     List<T> DB = new ArrayList<>();
 
     private long genId() {

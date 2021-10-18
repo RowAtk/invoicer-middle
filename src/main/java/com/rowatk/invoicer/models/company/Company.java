@@ -1,4 +1,4 @@
-package com.rowatk.invoicer.models.entity;
+package com.rowatk.invoicer.models.company;
 
 import com.rowatk.invoicer.models.common.Address;
 
@@ -7,28 +7,28 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
-public abstract class Entity implements Comparable<Entity>{
+public abstract class Company implements Comparable<Company>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @NotBlank
-    private String company_name;
+    protected String companyName;
 
     @Embedded
-    private Address address;
+    protected Address address;
 
     @NotNull
-    private String phone;
+    protected String phone;
 
     @NotNull
-    private String email;
+    protected String email;
 
-    public Entity() { }
+    public Company() { }
 
-    public Entity(String company_name, Address address, String phone, String email) {
-        this.company_name = company_name;
+    public Company(String companyName, Address address, String phone, String email) {
+        this.companyName = companyName;
         this.address = address;
         this.phone = phone;
         this.email = email;
@@ -43,11 +43,11 @@ public abstract class Entity implements Comparable<Entity>{
     }
 
     public String getCompanyName() {
-        return company_name;
+        return companyName;
     }
 
-    public void setCompanyName(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public Address getAddress() {
@@ -75,20 +75,11 @@ public abstract class Entity implements Comparable<Entity>{
     }
 
     @Override
-    public int compareTo(Entity e) {
-        int nameCmp = this.company_name.compareTo(e.getCompanyName());
+    public int compareTo(Company e) {
+        int nameCmp = this.companyName.compareTo(e.getCompanyName());
         if(nameCmp == 0) {
             return this.address.compareTo(e.getAddress());
         }
         return nameCmp;
-    }
-
-    public String toString(String type) {
-        return type + "{" +
-                "company_name='" + company_name + '\'' +
-                ", address=" + address +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }

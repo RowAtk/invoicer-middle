@@ -1,6 +1,16 @@
 package com.rowatk.invoicer.dto.model;
 
-public class BuyerDTO extends EntityDTO {
+public class BuyerDTO extends CompanyDTO {
+
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     @Override
     public String getKey() {
@@ -9,6 +19,12 @@ public class BuyerDTO extends EntityDTO {
 
     @Override
     public String toString() {
-        return super.toString("Buyer");
+        return "BuyerDTO{" +
+                "userId=" + userId +
+                ", companyName='" + companyName + '\'' +
+                ", address=" + address +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
